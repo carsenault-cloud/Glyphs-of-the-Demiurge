@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://dk7ydxrgmq61t"]
+
+[ext_resource type="Script" uid="uid://d2soj7gfk30bl" path="res://world/world_scripts/terrain_manager.gd" id="1_0xm2m"]
+[ext_resource type="Shader" uid="uid://dkm60k6varsxu" path="res://world/world_shaders/terrain.gdshader" id="2_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://du7no6cxy5w8e" path="res://player/player.tscn" id="2_h2yge"]
+[ext_resource type="Script" uid="uid://crrsqd2ya0p3i" path="res://world/world_scripts/world_environment_setup.gd" id="3_1bvp3"]
+[ext_resource type="Script" uid="uid://d31ldwoky37df" path="res://foliage_setup.gd" id="4_7mycd"]
+[ext_resource type="PackedScene" uid="uid://2pr2ureotrjn" path="res://player/gui/hud.tscn" id="5_lquwl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0xm2m"]
+render_priority = 0
+shader = ExtResource("2_1bvp3")
+shader_parameter/grass_color = Color(0.28, 0.45, 0.18, 1)
+shader_parameter/rock_color = Color(0.4, 0.37, 0.34, 1)
+shader_parameter/sand_color = Color(0.76, 0.7, 0.5, 1)
+shader_parameter/snow_color = Color(0.95, 0.95, 0.97, 1)
+shader_parameter/sand_height = -8.0
+shader_parameter/snow_height = 22.0
+shader_parameter/rock_slope = 0.75
+shader_parameter/show_chunk_checker = true
+shader_parameter/chunk_size = 32.0
+
+[node name="Main" type="Node3D" unique_id=1805343782 node_paths=PackedStringArray("target")]
+script = ExtResource("1_0xm2m")
+target = NodePath("Player")
+world_seed = 2456789
+chunk_material = SubResource("ShaderMaterial_0xm2m")
+
+[node name="WorldSetup" type="Node3D" parent="." unique_id=1556177267]
+script = ExtResource("3_1bvp3")
+
+[node name="FoliageSetup" type="Node3D" parent="." unique_id=144740820]
+script = ExtResource("4_7mycd")
+
+[node name="Player" parent="." unique_id=221860260 instance=ExtResource("2_h2yge")]
+
+[node name="CanvasLayer" parent="." unique_id=2023378604 instance=ExtResource("5_lquwl")]
+
+[connection signal="pressed" from="CanvasLayer/Pause/HBoxcontainer/VBoxContainer/ResetTerrain" to="." method="_on_reset_terrain_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause/HBoxcontainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+
+[editable path="CanvasLayer"]
+[editable path="CanvasLayer/Pause"]

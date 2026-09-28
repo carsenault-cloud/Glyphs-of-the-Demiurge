@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://2pr2ureotrjn"]
+
+[ext_resource type="PackedScene" uid="uid://b44sl40ehvwsu" path="res://player/gui/pause.tscn" id="1_70rxs"]
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=2023378604]
+
+[node name="Pause" parent="." unique_id=303216382 instance=ExtResource("1_70rxs")]

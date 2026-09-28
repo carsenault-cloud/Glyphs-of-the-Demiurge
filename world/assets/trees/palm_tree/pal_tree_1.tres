@@ -1,0 +1,8 @@
+[gd_resource type="MultiMesh" format=3 uid="uid://cuymyqm00nsqe"]
+
+[ext_resource type="ArrayMesh" uid="uid://dtnogdoq6al44" path="res://world/raw_assets/palm_tree/palm_tree_1/palm_tree_1.obj" id="1_jkk40"]
+
+[resource]
+transform_format = 1
+use_colors = true
+mesh = ExtResource("1_jkk40")

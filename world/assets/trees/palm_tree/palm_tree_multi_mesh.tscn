@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bpfits3bp10"]
+
+[ext_resource type="ArrayMesh" uid="uid://dtnogdoq6al44" path="res://world/raw_assets/palm_tree/palm_tree_1/palm_tree_1.obj" id="1_xsplp"]
+
+[sub_resource type="MultiMesh" id="MultiMesh_g4v7s"]
+use_colors = true
+mesh = ExtResource("1_xsplp")
+
+[node name="PalmTreeMultiMesh" type="MultiMeshInstance3D" unique_id=1741523838]
+multimesh = SubResource("MultiMesh_g4v7s")

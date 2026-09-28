@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://c7i6e1uh7jn2g"]
+
+[ext_resource type="Script" uid="uid://nlqltaag7kpo" path="res://player/player.gd" id="1_roev1"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_oul6g"]
+
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_g4v7s"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yf5fn"]
+
+[node name="Player" type="CharacterBody3D" unique_id=221860260]
+script = ExtResource("1_roev1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=478379877]
+shape = SubResource("CapsuleShape3D_g4v7s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1309600775]
+mesh = SubResource("CapsuleMesh_oul6g")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=730276655]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0.5, 0)
+shape = SubResource("SeparationRayShape3D_g4v7s")
+spring_length = 3.0
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=1993274760]
+
+[node name="InteractionRaycast" type="RayCast3D" parent="." unique_id=1581527477]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, 0)
+target_position = Vector3(0, 0, -5)
+
+[node name="InteractionShapecast" type="ShapeCast3D" parent="." unique_id=1520566864]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0.5, 0.5, 0)
+visible = false
+shape = SubResource("SphereShape3D_yf5fn")
+target_position = Vector3(0, 0, -3)
