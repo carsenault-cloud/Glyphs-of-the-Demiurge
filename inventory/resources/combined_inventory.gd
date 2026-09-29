@@ -1,26 +1,21 @@
 extends Control
 
 var opened := false
+@onready var hotbar := $VBoxContainer/HotbarUI
+@onready var inventory := $VBoxContainer/InventoryUI
 
 func _ready() -> void:
 	close_menu()
-	for b in get_tree().get_nodes_in_group("pause_buttons"):
-		print("setting always on: ", b.name)
-		b.process_mode = Node.PROCESS_MODE_ALWAYS
+	hotbar.visible = true
 
 func open_menu() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	mouse_filter = Control.MOUSE_FILTER_STOP
-	visible = true
+	inventory.visible = true
 	opened = true
-	get_tree().paused = true
 
 func close_menu() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	visible = false
+	inventory.visible = false
 	opened = false
-	get_tree().paused = false
-
-func quit() -> void:
-	pass

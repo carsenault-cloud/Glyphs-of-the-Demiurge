@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://b8m0fkfj76j51"]
+
+[ext_resource type="Script" uid="uid://dhknqlh0nwe7v" path="res://inventory/resources/crafting_ui.gd" id="1_gicjo"]
+[ext_resource type="PackedScene" uid="uid://ky10nksg6exv" path="res://inventory/scenes/inventory_slot.tscn" id="1_ty4o4"]
+
+[node name="Control" type="Control" unique_id=1394406981 node_paths=PackedStringArray("grid_container", "output_slot")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+script = ExtResource("1_gicjo")
+grid_slot_scene = ExtResource("1_ty4o4")
+grid_container = NodePath("CraftingUI")
+output_slot = NodePath("OutputSlot")
+
+[node name="CraftingUI" type="GridContainer" parent="." unique_id=1210973811]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+columns = 3
+
+[node name="OutputSlot" parent="." unique_id=1817604770 instance=ExtResource("1_ty4o4")]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0

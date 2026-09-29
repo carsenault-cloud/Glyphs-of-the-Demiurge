@@ -6,6 +6,7 @@ const CS := TerrainConfig.CHUNK_SIZE
 @export var target: Node3D
 @export var world_seed := 12345
 @export var chunk_material: Material
+@export var biome_defs: Array[TerrainBiome] = []
 
 @onready var player = $Player
 
@@ -87,6 +88,7 @@ func _process_rebuild_queue() -> void:
 func _load_chunk(coord: Vector2i) -> void:
 	var data := TerrainChunkData.new(coord)
 	data.generate_base(generator)
+	data.biome = generator.get_biome(coord, biome_defs.size())
 	var saved := TerrainStorage.load_deltas(save_dir, coord)
 	if saved.size() == data.deltas.size():
 		data.deltas = saved
@@ -96,6 +98,9 @@ func _load_chunk(coord: Vector2i) -> void:
 	add_child(chunk)
 	chunks[coord] = chunk
 	rebuild_queue[coord] = true
+	
+	var def : TerrainBiome = biome_defs[data.biome] if data.biome < biome_defs.size() else null
+	chunk.scatter_vegetation(def)
 
 	# Saved edits on our border change neighbors' edge normals
 	if data.has_edits():
@@ -212,5 +217,6 @@ func _on_reset_terrain_pressed() -> void:
 	clear_delta()
 
 func _on_quit_pressed() -> void:
+	print("Quit pressed")
 	notification(NOTIFICATION_WM_CLOSE_REQUEST)
 	get_tree().quit()

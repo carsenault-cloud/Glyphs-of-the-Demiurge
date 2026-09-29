@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://c7w4mbgje0bgj"]
+
+[ext_resource type="Script" uid="uid://c05y4kucprysm" path="res://world/dropped_item.gd" id="1_sn3gv"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_g4v7s"]
+radius = 0.3
+
+[node name="DroppedItem" type="Area3D" unique_id=496967403]
+script = ExtResource("1_sn3gv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=361242193]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=275472578]
+shape = SubResource("SphereShape3D_g4v7s")

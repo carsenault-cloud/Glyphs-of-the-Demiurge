@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://d2u4bwkqe5sjk"]
+
+[ext_resource type="Script" uid="uid://bgwuobjpl1kr5" path="res://inventory/resources/combined_inventory.gd" id="1_kidqf"]
+[ext_resource type="PackedScene" uid="uid://wsl8udgdw55f" path="res://inventory/scenes/hotbar_ui.tscn" id="1_qx1vi"]
+[ext_resource type="PackedScene" uid="uid://cowg8i02na6mf" path="res://inventory/scenes/inventory_ui.tscn" id="2_kidqf"]
+
+[node name="CombinedInventory" type="Control" unique_id=1104229195]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_kidqf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2017595143]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HotbarUI" parent="VBoxContainer" unique_id=1622552708 instance=ExtResource("1_qx1vi")]
+layout_mode = 2
+
+[node name="InventoryUI" parent="VBoxContainer" unique_id=1380815914 instance=ExtResource("2_kidqf")]
+layout_mode = 2

@@ -4,6 +4,8 @@
 [ext_resource type="Shader" uid="uid://dkm60k6varsxu" path="res://world/world_shaders/terrain.gdshader" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://du7no6cxy5w8e" path="res://player/player.tscn" id="2_h2yge"]
 [ext_resource type="Script" uid="uid://crrsqd2ya0p3i" path="res://world/world_scripts/world_environment_setup.gd" id="3_1bvp3"]
+[ext_resource type="Script" uid="uid://bcadeo8io544a" path="res://world/world_scripts/terrain_biome.gd" id="3_5vw27"]
+[ext_resource type="ArrayMesh" uid="uid://x7ipxvjcah2g" path="res://world/assets/rocks/voxel rocks/rock_1.obj" id="4_5vw27"]
 [ext_resource type="Script" uid="uid://d31ldwoky37df" path="res://foliage_setup.gd" id="4_7mycd"]
 [ext_resource type="PackedScene" uid="uid://2pr2ureotrjn" path="res://player/gui/hud.tscn" id="5_lquwl"]
 
@@ -20,11 +22,18 @@ shader_parameter/rock_slope = 0.75
 shader_parameter/show_chunk_checker = true
 shader_parameter/chunk_size = 32.0
 
+[sub_resource type="Resource" id="Resource_7mycd"]
+script = ExtResource("3_5vw27")
+biome_name = "Beach"
+mesh = ExtResource("4_5vw27")
+metadata/_custom_type_script = "uid://bcadeo8io544a"
+
 [node name="Main" type="Node3D" unique_id=1805343782 node_paths=PackedStringArray("target")]
 script = ExtResource("1_0xm2m")
 target = NodePath("Player")
 world_seed = 2456789
 chunk_material = SubResource("ShaderMaterial_0xm2m")
+biome_defs = Array[ExtResource("3_5vw27")]([SubResource("Resource_7mycd")])
 
 [node name="WorldSetup" type="Node3D" parent="." unique_id=1556177267]
 script = ExtResource("3_1bvp3")

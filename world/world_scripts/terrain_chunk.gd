@@ -11,6 +11,7 @@ var mesh_instance := MeshInstance3D.new()
 var body := StaticBody3D.new()
 var shape_node := CollisionShape3D.new()
 var height_shape := HeightMapShape3D.new()
+var vegetation := MultiMeshInstance3D.new()
 
 func setup(p_data: TerrainChunkData, material: Material) -> void:
 	data = p_data
@@ -20,6 +21,7 @@ func setup(p_data: TerrainChunkData, material: Material) -> void:
 func _ready() -> void:
 	add_child(mesh_instance)
 	add_child(body)
+	add_child(vegetation)
 	body.add_child(shape_node)
 	height_shape.map_width = N
 	height_shape.map_depth = N
@@ -79,3 +81,29 @@ func rebuild(sampler: Callable) -> void:
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 	mesh_instance.mesh = mesh
 	height_shape.map_data = heights
+
+func scatter_vegetation(def: TerrainBiome) -> void:
+	if def == null or def.mesh == null or def.density <= 0.0:
+		vegetation.multimesh = null
+		return
+	
+	var mm := MultiMesh.new()
+	mm.transform_format = MultiMesh.TRANSFORM_3D
+	mm.mesh = def.mesh
+	mm.instance_count = roundi(CS * CS * def.density)
+	
+	var rng := RandomNumberGenerator.new()
+	rng.seed = hash(Vector3i(data.coord.x, data.coord.y, 7919))
+	
+	for i in mm.instance_count:
+		var lx := rng.randf_range(0.0, CS)
+		var lz := rng.randf_range(0.0, CS)
+		var h = data.get_height_interpolated(lx, lz)
+		
+		var t := Transform3D()
+		t = t.rotated(Vector3.UP, rng.randf_range(0.0, TAU))
+		t = t.scaled(Vector3.ONE * rng.randf_range(def.min_scale, def.max_scale))
+		t.origin = Vector3(lx, h, lz)
+		mm.set_instance_transform(i, t)
+	
+	vegetation.multimesh = mm

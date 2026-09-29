@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://wsl8udgdw55f"]
+
+[ext_resource type="Script" uid="uid://dltgalvpe5cgt" path="res://inventory/resources/hotbar_ui.gd" id="1_jfdrg"]
+[ext_resource type="PackedScene" uid="uid://ky10nksg6exv" path="res://inventory/scenes/inventory_slot.tscn" id="1_xe2sl"]
+
+[node name="HotbarUI" type="HBoxContainer" unique_id=1622552708 node_paths=PackedStringArray("slot_container")]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_jfdrg")
+slot_scene = ExtResource("1_xe2sl")
+slot_container = NodePath(".")

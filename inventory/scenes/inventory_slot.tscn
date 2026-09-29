@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://ky10nksg6exv"]
+
+[ext_resource type="Script" uid="uid://cbcskd560w3al" path="res://inventory/resources/inventory_slot.gd" id="1_6iytm"]
+[ext_resource type="Texture2D" uid="uid://b5s4qowktb8km" path="res://inventory/assets/inventory_slot.png" id="1_axp2r"]
+
+[node name="InventorySlot" type="Panel" unique_id=1752646696]
+custom_minimum_size = Vector2(64, 64)
+script = ExtResource("1_6iytm")
+
+[node name="Icon" type="TextureRect" parent="." unique_id=118538041]
+texture_filter = 1
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -64.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("1_axp2r")
+
+[node name="Count" type="Label" parent="." unique_id=874750376]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+horizontal_alignment = 2
+vertical_alignment = 2

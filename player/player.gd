@@ -55,6 +55,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("god_mine"):
 		var ray_target: Vector3 = interact_ray.get_collision_point()
 		terrain.apply_brush(ray_target, 1.0, -1.0)
+	
+	if event.is_action_pressed("god_debug_spawn"):
+		DroppedItem.spawn(ItemStack.new(ItemRegistry.get_item(0), 1), interact_ray.get_collision_point(), get_tree().current_scene)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.

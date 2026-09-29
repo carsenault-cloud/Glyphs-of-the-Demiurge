@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cowg8i02na6mf"]
+
+[ext_resource type="PackedScene" uid="uid://ky10nksg6exv" path="res://inventory/scenes/inventory_slot.tscn" id="1_et4cc"]
+[ext_resource type="Script" uid="uid://bo55vs0qxf60c" path="res://inventory/resources/inventory_ui.gd" id="1_lyi88"]
+
+[node name="InventoryUI" type="GridContainer" unique_id=1380815914 node_paths=PackedStringArray("slot_container")]
+offset_right = 64.0
+offset_bottom = 64.0
+columns = 10
+script = ExtResource("1_lyi88")
+slot_scene = ExtResource("1_et4cc")
+slot_container = NodePath(".")

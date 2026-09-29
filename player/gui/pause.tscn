@@ -12,12 +12,14 @@ noise = SubResource("FastNoiseLite_yf5fn")
 color_ramp = SubResource("Gradient_57qmd")
 
 [node name="Pause" type="Control" unique_id=303216382 groups=["guis"]]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_6dfxq")
 
 [node name="PauseBackground" type="TextureRect" parent="." unique_id=1584161325]
@@ -28,6 +30,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = SubResource("NoiseTexture2D_g4v7s")
 
 [node name="HBoxcontainer" type="HBoxContainer" parent="." unique_id=1784316024]
@@ -44,24 +47,28 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 alignment = 1
 
-[node name="Resume" type="Button" parent="HBoxcontainer/VBoxContainer" unique_id=1556227970]
+[node name="Resume" type="Button" parent="HBoxcontainer/VBoxContainer" unique_id=1556227970 groups=["pause_buttons"]]
 texture_filter = 1
 layout_mode = 2
+mouse_filter = 1
 text = "RESUME"
 
-[node name="ResetPlayer" type="Button" parent="HBoxcontainer/VBoxContainer" unique_id=298750507]
+[node name="ResetPlayer" type="Button" parent="HBoxcontainer/VBoxContainer" unique_id=298750507 groups=["pause_buttons"]]
 texture_filter = 1
 layout_mode = 2
+mouse_filter = 1
 text = "RESET PLAYER"
 
-[node name="ResetTerrain" type="Button" parent="HBoxcontainer/VBoxContainer" unique_id=630213740]
+[node name="ResetTerrain" type="Button" parent="HBoxcontainer/VBoxContainer" unique_id=630213740 groups=["pause_buttons"]]
 texture_filter = 1
 layout_mode = 2
+mouse_filter = 1
 text = "RESET TERRAIN"
 
-[node name="Quit" type="Button" parent="HBoxcontainer/VBoxContainer" unique_id=1369394781]
+[node name="Quit" type="Button" parent="HBoxcontainer/VBoxContainer" unique_id=1369394781 groups=["pause_buttons"]]
 texture_filter = 1
 layout_mode = 2
+mouse_filter = 1
 text = "QUIT"
 
 [connection signal="pressed" from="HBoxcontainer/VBoxContainer/Resume" to="." method="close_menu"]
