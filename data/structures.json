@@ -1,0 +1,8 @@
+{
+	"standing_stones": [
+		"res://world/structures/standing_stones_1.tscn",
+	],
+	"ruined_road": [
+		"res://world/structures/ruined_road_1.tscn",
+	]
+}

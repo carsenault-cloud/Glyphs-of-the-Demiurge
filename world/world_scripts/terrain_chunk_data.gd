@@ -49,3 +49,28 @@ func get_height_interpolated(lx: float, lz: float) -> float:
 	var h01 := get_height(x0, z0 + 1)
 	var h11 := get_height(x0 + 1, z0 + 1)
 	return lerp(lerp(h00, h10, fx), lerp(h01, h11, fx), fz)
+	
+func get_normal_interpolated(lx: float, lz: float, sampler: Callable, gx0: int, gz0: int) -> Vector3:
+	var wx := gx0 + lx
+	var wz := gz0 + lz
+	var hL: float = sampler.call(floori(wx - 1), floori(wz))
+	var hR: float = sampler.call(floori(wx + 1), floori(wz))
+	var hD: float = sampler.call(floori(wx), floori(wz - 1))
+	var hU: float = sampler.call(floori(wx), floori(wz + 1))
+	return Vector3(hL - hR, 2.0, hD - hU).normalized()
+
+func set_target_height(x: int, z: int, target: float, factor: float) -> void:
+	var i := z * N + x
+	var current := base_heights[i] + deltas[i]
+	var blended = lerp(current, target, factor)
+	deltas[i] = blended - base_heights[i]
+	dirty = true
+
+func get_normal_local(lx: float, lz: float) -> Vector3:
+	var x0 := clampi(floori(lx), 1, N - 2)
+	var z0 := clampi(floori(lz), 1, N - 2)
+	var hL := get_height(x0 - 1, z0)
+	var hR := get_height(x0 + 1, z0)
+	var hD := get_height(x0, z0 - 1)
+	var hU := get_height(x0, z0 + 1)
+	return Vector3(hL - hR, 2.0, hD - hU).normalized()

@@ -1,0 +1,104 @@
+[gd_scene format=3 uid="uid://1kkmrkbk8lq0"]
+
+[ext_resource type="ArrayMesh" uid="uid://mmp04apiycn0" path="res://world/assets/rocks/low_res_rocks/rock1.obj" id="1_lko25"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(7.125244, 1, 15.864624)
+
+[node name="Node3D" type="Node3D" unique_id=2076359600]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1395563723]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6837711, 0, 1.578537)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1839963863]
+transform = Transform3D(0.9355038, 0, 0.35331666, 0, 1, 0, -0.35331666, 0, 0.9355038, 1.8942432, 0, 0)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=1634382619]
+transform = Transform3D(0.6005721, 0, 0.7995706, 0, 1, 0, -0.7995706, 0, 0.6005721, -2.2450294, 0, -3.823566)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=1226997839]
+transform = Transform3D(-0.979503, 0, 0.20142972, 0, 1, 0, -0.20142972, 0, -0.979503, 0, 0, 6.594773)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="." unique_id=798268058]
+transform = Transform3D(0.9966597, 0, 0.08166682, 0, 1, 0, -0.08166682, 0, 0.9966597, -0.8068085, 0, -4.595293)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="." unique_id=1046474804]
+transform = Transform3D(0.7940058, 0, -0.60791016, 0, 1, 0, 0.60791016, 0, 0.7940058, -0.52618027, 0, 2.8413644)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="." unique_id=900665806]
+transform = Transform3D(0.86942774, 0, -0.49406016, 0, 1, 0, 0.49406016, 0, 0.86942774, 0.7717266, 0, -1.7890074)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="." unique_id=32419]
+transform = Transform3D(0.9210334, 0, -0.38948366, 0, 1, 0, 0.38948366, 0, 0.9210334, 0.66649246, 0, -4.875922)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="." unique_id=1069672211]
+transform = Transform3D(0.35599574, 0, 0.9344876, 0, 1, 0, -0.9344876, 0, 0.35599574, 1.0523586, 0, 3.4026222)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="." unique_id=155855847]
+transform = Transform3D(0.5422379, 0, 0.84022504, 0, 1, 0, -0.84022504, 0, 0.5422379, 1.648695, 0, -3.998959)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="." unique_id=2123661917]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3502636, 0, -1.5785363)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D12" type="MeshInstance3D" parent="." unique_id=1644115282]
+transform = Transform3D(0.90124124, 0, -0.43331772, 0, 1, 0, 0.43331772, 0, 0.90124124, -1.6136131, 0, -6.349223)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D13" type="MeshInstance3D" parent="." unique_id=1359952029]
+transform = Transform3D(0.843526, 0, -0.53708833, 0, 1, 0, 0.53708833, 0, 0.843526, -1.4031429, 0, 0)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D14" type="MeshInstance3D" parent="." unique_id=1420817551]
+transform = Transform3D(0.9974587, 0, 0.07124724, 0, 1, 0, -0.07124724, 0, 0.9974587, 0, 0, -0.035079002)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D15" type="MeshInstance3D" parent="." unique_id=603730958]
+transform = Transform3D(0.923426, 0, -0.38377658, 0, 1, 0, 0.38377658, 0, 0.923426, -0.7015724, 0, -2.5958157)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D16" type="MeshInstance3D" parent="." unique_id=1070115004]
+transform = Transform3D(0.9970939, 0, -0.07618215, 0, 1, 0, 0.07618215, 0, 0.9970939, 2.4554996, 0, -1.6837728)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D17" type="MeshInstance3D" parent="." unique_id=2001354979]
+transform = Transform3D(0.42395124, 0, 0.905685, 0, 1, 0, -0.905685, 0, 0.42395124, 2.3502617, 0, -6.9806356)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D18" type="MeshInstance3D" parent="." unique_id=1718980752]
+transform = Transform3D(0.86067605, 0, -0.509153, 0, 1, 0, 0.509153, 0, 0.86067605, -0.9471226, 0, -1.4733005)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D19" type="MeshInstance3D" parent="." unique_id=1830867917]
+transform = Transform3D(-0.70332956, 0, 0.71086395, 0, 1, 0, -0.71086395, 0, -0.70332956, -1.6486912, 0, 4.2094283)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D20" type="MeshInstance3D" parent="." unique_id=1739960826]
+transform = Transform3D(0.89078504, 0, 0.45442495, 0, 1, 0, -0.45442495, 0, 0.89078504, 0.38586807, 0, 4.490059)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D21" type="MeshInstance3D" parent="." unique_id=209977113]
+transform = Transform3D(0.575442, 0, 0.81784254, 0, 1, 0, -0.81784254, 0, 0.575442, 2.0345573, 0, 1.7890067)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D22" type="MeshInstance3D" parent="." unique_id=1161839285]
+transform = Transform3D(0.9496889, 0, 0.31319487, 0, 1, 0, -0.31319487, 0, 0.9496889, -0.31571007, 0, 1.438221)
+mesh = ExtResource("1_lko25")
+
+[node name="MeshInstance3D23" type="MeshInstance3D" parent="." unique_id=855479474]
+transform = Transform3D(0.8743429, -2.1213515e-08, -0.48530865, 2.1213515e-08, 1, -5.4926454e-09, 0.48530865, -5.4926454e-09, 0.8743429, 0.7717285, 0, 1.6837714)
+mesh = ExtResource("1_lko25")
+
+[node name="TerrainForm" type="CollisionShape3D" parent="." unique_id=687434904]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22253418, -0.2507434, -0.41760802)
+shape = SubResource("BoxShape3D_g4v7s")

@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://q321dsnmd4gs"]
+
+[ext_resource type="ArrayMesh" uid="uid://cxhgqc3op50b7" path="res://world/assets/rocks/low_res_rocks/standing_stone_1.obj" id="1_72jg7"]
+[ext_resource type="Texture2D" uid="uid://vr81tolsnxfa" path="res://world/assets/rocks/low_res_rocks/standing_stone_1.png" id="1_hc70o"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4v7s"]
+albedo_texture = ExtResource("1_hc70o")
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(1, 1, 3.9365234)
+
+[node name="Node3D" type="Node3D" unique_id=1652804023]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=124295736]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1320152, 0, 1.269228)
+material_override = SubResource("StandardMaterial3D_g4v7s")
+mesh = ExtResource("1_72jg7")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1905718073]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1320152, 0, -0.4265504)
+material_override = SubResource("StandardMaterial3D_g4v7s")
+mesh = ExtResource("1_72jg7")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=1611439924]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3691659, 0, -1.399538)
+material_override = SubResource("StandardMaterial3D_g4v7s")
+mesh = ExtResource("1_72jg7")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=1500866265]
+transform = Transform3D(0.99855596, 0.053648204, 0.0028115844, 0, 0.052335974, -0.9986295, -0.05372183, 0.99718744, 0.0522604, -1.2159247, 2.3897095, -0.63560414)
+material_override = SubResource("StandardMaterial3D_g4v7s")
+mesh = ExtResource("1_72jg7")
+
+[node name="TerrainForm" type="CollisionShape3D" parent="." unique_id=60372583]
+transform = Transform3D(3.9050713, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_g4v7s")
+disabled = true

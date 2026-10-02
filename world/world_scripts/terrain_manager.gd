@@ -4,7 +4,7 @@ extends Node3D
 const CS := TerrainConfig.CHUNK_SIZE
 
 @export var target: Node3D
-@export var world_seed := 12345
+@export var world_seed := 23456
 @export var chunk_material: Material
 @export var biome_defs: Array[TerrainBiome] = []
 
@@ -90,7 +90,8 @@ func _load_chunk(coord: Vector2i) -> void:
 	data.generate_base(generator)
 	data.biome = generator.get_biome(coord, biome_defs.size())
 	var saved := TerrainStorage.load_deltas(save_dir, coord)
-	if saved.size() == data.deltas.size():
+	var is_fresh := saved.size() != data.deltas.size()
+	if not is_fresh:
 		data.deltas = saved
 
 	var chunk := TerrainChunk.new()
@@ -100,7 +101,12 @@ func _load_chunk(coord: Vector2i) -> void:
 	rebuild_queue[coord] = true
 	
 	var def : TerrainBiome = biome_defs[data.biome] if data.biome < biome_defs.size() else null
-	chunk.scatter_vegetation(def)
+	chunk.apply_biome(def, sample_height)
+	if def != null:
+		chunk.scatter_structures(def, is_fresh)
+	if is_fresh and data.dirty:
+		TerrainStorage.save_deltas(save_dir, coord, data.deltas)
+		data.dirty = false
 
 	# Saved edits on our border change neighbors' edge normals
 	if data.has_edits():
@@ -220,3 +226,25 @@ func _on_quit_pressed() -> void:
 	print("Quit pressed")
 	notification(NOTIFICATION_WM_CLOSE_REQUEST)
 	get_tree().quit()
+
+func reset_world() -> void:
+	for coord in chunks.keys():
+		chunks[coord].queue_free()
+	chunks.clear()
+	load_queue.clear()
+	rebuild_queue.clear()
+	
+	var dir := DirAccess.open(save_dir)
+	if dir != null:
+		dir.list_dir_begin()
+		var entry := dir.get_next()
+		while entry != "":
+			if not dir.current_is_dir():
+				dir.remove(entry)
+			entry = dir.get_next()
+		dir.list_dir_end()
+	else:
+		push_warning("reset_world: could not open save_dir %s" % save_dir)
+	
+	last_center = Vector2i(1 << 30, 1 << 30)
+	set_player()

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Item" format=3 uid="uid://dyirca8mycu5e"]
 
-[ext_resource type="Texture2D" uid="uid://bmmnr1lincp6v" path="res://world/assets/rocks/low_res_rocks/rock1.png" id="1_73j1v"]
+[ext_resource type="Texture2D" uid="uid://cdrrjfdx8g630" path="res://items/stone/stone.png" id="1_73j1v"]
 [ext_resource type="Script" uid="uid://derofqhwhhilh" path="res://inventory/resources/item.gd" id="1_f2jea"]
 [ext_resource type="ArrayMesh" uid="uid://mmp04apiycn0" path="res://world/assets/rocks/low_res_rocks/rock1.obj" id="3_lneab"]
 

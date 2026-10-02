@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 CursorHeld="*uid://sqcc6jml5e05"
 ItemRegistry="*uid://badkew8f7v18d"
 RecipeRegistry="*uid://d115fqbuw1xd6"
+StructureRegistry="*uid://dm40x2g7k8y4v"
 
 [display]
 
@@ -170,4 +171,5 @@ god_debug_spawn={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
