@@ -15,6 +15,8 @@ var save_dir: String
 var chunks: Dictionary = {}				# Vector2i -> TerrainChunk
 var load_queue: Array[Vector2i] = []
 var rebuild_queue: Dictionary = {}		# Vector2i -> true
+var large_load_queue: Array[Vector2i] = []
+var small_load_queue: Array[Vector2i] = []
 var last_center := Vector2i(1 << 30, 1 << 30)
 
 func _ready() -> void:
@@ -41,6 +43,8 @@ func _process(_delta: float) -> void:
 		_refresh_streaming(center)
 	_process_load_queue()
 	_process_rebuild_queue()
+	_update_tier_queues(center)
+	_process_tier_queues()
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
@@ -85,36 +89,91 @@ func _process_rebuild_queue() -> void:
 			chunk.rebuild(sample_height)
 			budget -= 1
 
+func _update_tier_queues(center: Vector2i) -> void:
+	for coord in chunks.keys():
+		var chunk: TerrainChunk = chunks[coord]
+		var d := maxi(absi(coord.x - center.x), absi(coord.y - center.y))
+
+		if d <= TerrainConfig.DETAIL_LOAD_RADIUS and not chunk.large_tier_loaded:
+			if not large_load_queue.has(coord):
+				large_load_queue.append(coord)
+		elif d > TerrainConfig.DETAIL_UNLOAD_RADIUS and chunk.large_tier_loaded:
+			chunk.unload_large_tier()
+
+		if d <= TerrainConfig.CLUTTER_LOAD_RADIUS and not chunk.small_tier_loaded:
+			if not small_load_queue.has(coord):
+				small_load_queue.append(coord)
+		elif d > TerrainConfig.CLUTTER_UNLOAD_RADIUS and chunk.small_tier_loaded:
+			chunk.unload_small_tier()
+
+func _process_tier_queues() -> void:
+	var large_budget := TerrainConfig.MAX_LARGE_LOADS_PER_FRAME
+	while large_budget > 0 and not large_load_queue.is_empty():
+		var coord: Vector2i = large_load_queue.pop_front()
+		var chunk: TerrainChunk = chunks.get(coord)
+		if chunk != null and not chunk.large_tier_loaded:
+			var def: TerrainBiome = biome_defs[chunk.data.biome] if chunk.data.biome < biome_defs.size() else null
+			chunk.load_large_tier()
+			large_budget -= 1
+
+	var small_budget := TerrainConfig.MAX_SMALL_LOADS_PER_FRAME
+	while small_budget > 0 and not small_load_queue.is_empty():
+		var coord: Vector2i = small_load_queue.pop_front()
+		var chunk: TerrainChunk = chunks.get(coord)
+		if chunk != null and not chunk.small_tier_loaded:
+			var def: TerrainBiome = biome_defs[chunk.data.biome] if chunk.data.biome < biome_defs.size() else null
+			chunk.load_small_tier()
+			small_budget -= 1
+
+# terrain_manager.gd — replace _load_chunk entirely
 func _load_chunk(coord: Vector2i) -> void:
 	var data := TerrainChunkData.new(coord)
 	data.generate_base(generator)
-	data.biome = generator.get_biome(coord, biome_defs.size())
-	var saved := TerrainStorage.load_deltas(save_dir, coord)
-	var is_fresh := saved.size() != data.deltas.size()
-	if not is_fresh:
-		data.deltas = saved
+
+	var saved_deltas := TerrainStorage.load_deltas(save_dir, coord)
+	if saved_deltas.size() == data.deltas.size():
+		data.deltas = saved_deltas
 
 	var chunk := TerrainChunk.new()
+	chunk.manager = self
 	chunk.setup(data, chunk_material)
 	add_child(chunk)
 	chunks[coord] = chunk
 	rebuild_queue[coord] = true
-	
-	var def : TerrainBiome = biome_defs[data.biome] if data.biome < biome_defs.size() else null
-	chunk.apply_biome(def, sample_height)
-	if def != null:
-		chunk.scatter_structures(def, is_fresh)
-	if is_fresh and data.dirty:
-		TerrainStorage.save_deltas(save_dir, coord, data.deltas)
-		data.dirty = false
 
-	# Saved edits on our border change neighbors' edge normals
+	var loaded_manifest := TerrainStorage.load_manifest(save_dir, coord)
+	if loaded_manifest != null:
+		data.manifest = loaded_manifest
+		data.biome = loaded_manifest.biome
+	else:
+		data.biome = generator.get_biome(coord, biome_defs.size())
+		var manifest := ChunkManifest.new()
+		manifest.biome = data.biome
+		data.manifest = manifest
+
+		var def: TerrainBiome = biome_defs[data.biome] if data.biome < biome_defs.size() else null
+		chunk.generate_manifest_entries(def, sample_height)   # may stamp deltas (structures)
+
+		TerrainStorage.save_manifest(save_dir, coord, manifest)
+		if data.dirty:
+			TerrainStorage.save_deltas(save_dir, coord, data.deltas)
+			data.dirty = false
+
+	var def: TerrainBiome = biome_defs[data.biome] if data.biome < biome_defs.size() else null
+	chunk.apply_ground_material(def)
+	chunk.instantiate_structures()
+
 	if data.has_edits():
 		for dz in range(-1, 2):
 			for dx in range(-1, 2):
 				var n := coord + Vector2i(dx, dz)
 				if n != coord and chunks.has(n):
 					rebuild_queue[n] = true
+
+func request_save_manifest(coord: Vector2i) -> void:
+	var chunk: TerrainChunk = chunks.get(coord)
+	if chunk != null and chunk.data.manifest != null:
+		TerrainStorage.save_manifest(save_dir, coord, chunk.data.manifest)
 
 func _unload_chunk(coord: Vector2i) -> void:
 	var chunk: TerrainChunk = chunks[coord]
