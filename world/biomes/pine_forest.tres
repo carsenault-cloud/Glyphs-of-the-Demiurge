@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TerrainBiome" format=3 uid="uid://ddwfnv6pjww1s"]
+
+[ext_resource type="Script" uid="uid://bd4bf7rw4ia6o" path="res://world/world_scripts/clutter_mesh.gd" id="1_qbvpd"]
+[ext_resource type="Script" uid="uid://vgymivl3qanh" path="res://data/definitions/destructible_clutter_def.gd" id="2_sa5qr"]
+[ext_resource type="Resource" uid="uid://dyd4skc84vmik" path="res://world/clutter/large_veg/pine_tree_1.tres" id="3_66jc0"]
+[ext_resource type="Script" uid="uid://bcadeo8io544a" path="res://world/world_scripts/terrain_biome.gd" id="3_be2nw"]
+[ext_resource type="Script" uid="uid://km6sqajvrm56" path="res://data/definitions/structure_biome_entry.gd" id="4_66jc0"]
+[ext_resource type="Resource" uid="uid://w5nge0p3wjce" path="res://world/structures/struct_resources/standing_stones_1.tres" id="6_5wxdn"]
+
+[resource]
+script = ExtResource("3_be2nw")
+large_veg = Array[ExtResource("2_sa5qr")]([ExtResource("3_66jc0")])
+structures = Array[ExtResource("4_66jc0")]([ExtResource("6_5wxdn")])
+metadata/_custom_type_script = "uid://bcadeo8io544a"

@@ -6,8 +6,10 @@ var recipes: Array[CraftingRecipe] = []
 func register(recipe: CraftingRecipe) -> void:
 	recipes.append(recipe)
 
-func find_match(grid_items: Array[Item], width: int, height: int) -> CraftingRecipe:
+func find_match(slot_items: Array[Item], station_id: String) -> CraftingRecipe:
 	for r in recipes:
-		if r.matches(grid_items, width, height):
+		if r.station_id != station_id:
+			continue
+		if r.matches(slot_items):
 			return r
 	return null

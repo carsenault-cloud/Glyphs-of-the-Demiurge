@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bjgttiem0wirr"]
+
+[ext_resource type="ArrayMesh" uid="uid://d07i7xvq5dblf" path="res://world/assets/trees/pine_tree_1.obj" id="1_b1qsv"]
+[ext_resource type="Texture2D" uid="uid://bvo363k1mnail" path="res://world/assets/trees/pine_tree_1.png" id="2_ohjbw"]
+[ext_resource type="Script" uid="uid://cu6n44hh0o3bh" path="res://world/world_scripts/breakable.gd" id="3_ohjbw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4v7s"]
+albedo_texture = ExtResource("2_ohjbw")
+texture_filter = 0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_g4v7s"]
+height = 4.7574463
+radius = 0.57958984
+
+[node name="Node3D" type="StaticBody3D" unique_id=1648499686]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1186999441]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+mesh = ExtResource("1_b1qsv")
+surface_material_override/0 = SubResource("StandardMaterial3D_g4v7s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=855963330]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3787231, 0)
+shape = SubResource("CylinderShape3D_g4v7s")
+
+[node name="Breakable" type="Node" parent="." unique_id=1454936878]
+script = ExtResource("3_ohjbw")

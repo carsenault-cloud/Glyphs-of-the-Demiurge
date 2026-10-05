@@ -1,6 +1,6 @@
 extends Node
 
-const ITEMS_PATH := "res://items/"
+const ITEMS_PATH := "res://items/_item_tres_files/"
 
 var _items: Dictionary = {}   # id -> Item
 

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="SlotRecipe" format=3 uid="uid://2bsy2bsdulf7"]
+
+[ext_resource type="Script" uid="uid://bhffop12ahd0p" path="res://inventory/resources/shaped_recipe.gd" id="1_a8wh6"]
+[ext_resource type="Resource" uid="uid://cmimdghcem72u" path="res://items/_item_tres_files/item_firebolt_staff.tres" id="1_o8tal"]
+[ext_resource type="Script" uid="uid://derofqhwhhilh" path="res://inventory/resources/item.gd" id="2_83ijr"]
+[ext_resource type="Resource" uid="uid://dyirca8mycu5e" path="res://items/_item_tres_files/item_stone.tres" id="3_o8tal"]
+
+[resource]
+script = ExtResource("1_a8wh6")
+slots = Array[ExtResource("2_83ijr")]([ExtResource("3_o8tal"), null, null, ExtResource("3_o8tal"), null, null, ExtResource("3_o8tal"), null, null])
+output = ExtResource("1_o8tal")
+metadata/_custom_type_script = "uid://bhffop12ahd0p"

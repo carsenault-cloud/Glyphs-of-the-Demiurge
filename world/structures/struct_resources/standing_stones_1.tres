@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="StructureBiomeEntry" format=3 uid="uid://w5nge0p3wjce"]
+
+[ext_resource type="Script" uid="uid://km6sqajvrm56" path="res://data/definitions/structure_biome_entry.gd" id="1_muyeg"]
+
+[resource]
+script = ExtResource("1_muyeg")
+structure_key = "standing_stones"
+min_count = 1
+max_count = 3
+metadata/_custom_type_script = "uid://km6sqajvrm56"

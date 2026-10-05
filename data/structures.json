@@ -1,9 +1,9 @@
 {
 	"standing_stones": [
-		"res://world/structures/standing_stones_1.tscn",
-		"res://world/structures/standing_stones_2.tscn",
+		"res://world/structures/scenes/standing_stones_1.tscn",
+		"res://world/structures/scenes/standing_stones_2.tscn",
 	],
 	"ruined_road": [
-		"res://world/structures/ruined_road_1.tscn",
+		"res://world/structures/scenes/ruined_road_1.tscn",
 	]
 }

@@ -5,8 +5,8 @@ extends Resource
 @export var chunk_mat: Material
 @export var ground_clutter: Array[ClutterMesh]
 @export var ground_veg: Array[ClutterMesh]
-@export var large_veg: Array[ClutterMesh]
-@export var large_clutter: Array[ClutterMesh]
+@export var large_veg: Array[DestructibleClutterDef]
+@export var large_clutter: Array[DestructibleClutterDef]
 @export var structures: Array[StructureBiomeEntry]
 @export var large_destructibles: Array[DestructibleClutterDef]
 @export var large_destructible_density := 0.01

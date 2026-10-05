@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://btg8k8axc2k6a"]
+
+[ext_resource type="Script" uid="uid://b8x1libtnkv1f" path="res://inventory/resources/spell_resources/projectile_spell.gd" id="1_3o1xo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yf5fn"]
+albedo_color = Color(0.83137256, 0.28627452, 0, 1)
+emission_enabled = true
+emission = Color(0.73278534, 0.2776932, 0, 1)
+subsurf_scatter_enabled = true
+subsurf_scatter_strength = 0.66
+texture_filter = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_g4v7s"]
+material = SubResource("StandardMaterial3D_yf5fn")
+radial_segments = 12
+rings = 12
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ax6js"]
+albedo_color = Color(0.9293666, 0.42190582, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_d0u6y"]
+material = SubResource("StandardMaterial3D_ax6js")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="Node3D" type="MeshInstance3D" unique_id=1195182914]
+mesh = SubResource("SphereMesh_g4v7s")
+script = ExtResource("1_3o1xo")
+lifetime = -1.0
+max_travel = -1.0
+damage = 200.0
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="." unique_id=1893882239]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.024677277, 0)
+amount = 12
+lifetime_randomness = 0.5
+mesh = SubResource("BoxMesh_d0u6y")
+emission_shape = 1
+emission_sphere_radius = 0.5
+emission_colors = PackedColorArray(1, 0, 0, 1)
+gravity = Vector3(0, 4, 0)

@@ -51,8 +51,8 @@ func apply_ground_material(biome: TerrainBiome) -> void:
 func generate_manifest_entries(biome: TerrainBiome, sampler: Callable) -> void:
 	if biome == null:
 		return
-	_generate_layer_entries(biome.large_veg, biome.large_veg_density, biome, "large_veg", 1301, sampler)
-	_generate_layer_entries(biome.large_clutter, biome.large_clutter_density, biome, "large_clutter", 1747, sampler)
+	_generate_destructible_entries(biome.large_veg, biome.large_veg_density, biome, "large_veg", 1301, sampler)
+	_generate_destructible_entries(biome.large_clutter, biome.large_clutter_density, biome, "large_clutter", 1747, sampler)
 	_generate_layer_entries(biome.ground_veg, biome.ground_veg_density, biome, "ground_veg", 907, sampler)
 	_generate_layer_entries(biome.ground_clutter, biome.ground_clutter_density, biome, "ground_clutter", 401, sampler)
 	_generate_destructible_entries(biome.large_destructibles, biome.large_destructible_density, biome, "large_destructible", 2203, sampler)
@@ -258,7 +258,7 @@ func unload_small_tier() -> void:
 		c.queue_free()
 
 func _instantiate_category(cat: String, root: Node3D) -> void:
-	if cat in ["large_veg", "large_clutter", "ground_veg", "ground_clutter"]:
+	if cat in ["ground_veg", "ground_clutter"]:
 		_build_multimesh_category(cat, root)
 	else:
 		_build_node_category(cat, root)
@@ -348,7 +348,7 @@ func _wire_persistence(inst: Node, entry_index: int) -> void:
 			if sub_states.has(rel_path):
 				var s: Dictionary = sub_states[rel_path]
 				if s.get("destroyed", false):
-					b.get_parent().queue_free()
+					b.queue_free()
 					continue
 				if s.get("health", -1.0) >= 0.0:
 					b.health = s["health"]

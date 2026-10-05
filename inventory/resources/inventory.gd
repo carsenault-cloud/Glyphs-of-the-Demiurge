@@ -65,3 +65,23 @@ func as_item_array() -> Array[Item]:
 	for i in size:
 		out[i] = _slots[i].item if _slots[i] != null else null
 	return out
+
+func to_save_array() -> Array:
+	var out := []
+	for i in size:
+		var s := _slots[i]
+		if s == null or s.count <= 0 or s.item == null:
+			out.append(null)
+		else:
+			out.append({"id": s.item.id, "count": s.count})
+	return out
+
+func load_from_save_array(saved: Array) -> void:
+	for i in mini(size, saved.size()):
+		var entry = saved[i]
+		if entry == null:
+			_slots[i] = null
+		else:
+			var item := ItemRegistry.get_item(entry.get("id", ""))
+			_slots[i] = ItemStack.new(item, int(entry.get("count", 1))) if item != null else null
+		changed.emit(i)

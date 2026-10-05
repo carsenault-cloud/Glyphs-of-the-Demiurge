@@ -1,8 +1,8 @@
 class_name ItemStack
 extends Resource
 
-var item: Item
-var count: int
+@export var item: Item
+@export var count: int
 
 func _init(p_item: Item = null, p_count: int = 1) -> void:
 	item = p_item

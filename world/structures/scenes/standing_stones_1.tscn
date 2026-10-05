@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://q321dsnmd4gs"]
+
+[ext_resource type="Texture2D" uid="uid://vr81tolsnxfa" path="res://world/assets/rocks/low_res_rocks/standing_stone_1.png" id="1_5krvv"]
+[ext_resource type="ArrayMesh" uid="uid://cxhgqc3op50b7" path="res://world/assets/rocks/low_res_rocks/standing_stone_1.obj" id="2_jhr5g"]
+[ext_resource type="Script" uid="uid://cj0l4p0xglnkr" path="res://inventory/resources/item_stack.gd" id="2_shk3t"]
+[ext_resource type="Resource" uid="uid://dyirca8mycu5e" path="res://items/_item_tres_files/item_stone.tres" id="3_aph7x"]
+[ext_resource type="Script" uid="uid://cu6n44hh0o3bh" path="res://world/world_scripts/breakable.gd" id="3_shk3t"]
+
+[sub_resource type="Resource" id="Resource_jhr5g"]
+script = ExtResource("2_shk3t")
+item = ExtResource("3_aph7x")
+count = 5
+metadata/_custom_type_script = "uid://cj0l4p0xglnkr"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4v7s"]
+albedo_texture = ExtResource("1_5krvv")
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yf5fn"]
+size = Vector3(1, 1.9535217, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(1, 1, 3.9365234)
+
+[node name="Node3D" type="Node3D" unique_id=1652804023]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1937258812]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.0529175)
+script = ExtResource("3_shk3t")
+materials = Array[ExtResource("2_shk3t")]([SubResource("Resource_jhr5g")])
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=124295736]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1320152, 0, 1.269228)
+material_override = SubResource("StandardMaterial3D_g4v7s")
+mesh = ExtResource("2_jhr5g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=2124349168]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1320152, 1.0003815, 1.269228)
+shape = SubResource("BoxShape3D_yf5fn")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="." unique_id=1258116348]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.505005, 0, -2.0529175)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D4" unique_id=288486965]
+transform = Transform3D(0.99685276, 0, -0.07927531, 0, 1, 0, 0.07927531, 0, 0.99685276, -1.1320152, 0, 1.269228)
+material_override = SubResource("StandardMaterial3D_g4v7s")
+mesh = ExtResource("2_jhr5g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4" unique_id=1437127959]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1320152, 1.0003815, 1.269228)
+shape = SubResource("BoxShape3D_yf5fn")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="." unique_id=1947949295]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2" unique_id=1536030973]
+transform = Transform3D(0.9929509, 0, 0.11852633, 0, 1, 0, -0.11852633, 0, 0.9929509, -1.1320152, 0, 1.269228)
+material_override = SubResource("StandardMaterial3D_g4v7s")
+mesh = ExtResource("2_jhr5g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2" unique_id=1444330804]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1320152, 1.0003815, 1.269228)
+shape = SubResource("BoxShape3D_yf5fn")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="." unique_id=1368827302]
+transform = Transform3D(1, 0, 0, 0, -0.027497564, -0.99962187, 0, 0.99962187, -0.027497564, 0, 3.725708, -0.4993286)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D3" unique_id=1156271198]
+transform = Transform3D(0.99706376, 0.0021056535, 0.07654705, -0.0021056535, 0.99999774, -8.0708414e-05, -0.07654705, -8.071028e-05, 0.997066, -1.1320152, 0, 1.269228)
+material_override = SubResource("StandardMaterial3D_g4v7s")
+mesh = ExtResource("2_jhr5g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3" unique_id=240674206]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1320152, 1.0003815, 1.269228)
+shape = SubResource("BoxShape3D_yf5fn")
+
+[node name="TerrainForm" type="CollisionShape3D" parent="." unique_id=60372583]
+transform = Transform3D(3.9050713, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.42666626, 0)
+shape = SubResource("BoxShape3D_g4v7s")
+disabled = true

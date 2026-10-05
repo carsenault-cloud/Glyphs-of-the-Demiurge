@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemStaff" format=3 uid="uid://cmimdghcem72u"]
+
+[ext_resource type="Texture2D" uid="uid://bedsnmpqbdq7j" path="res://world/assets/glyphs/fire_glyph_lesser.png" id="1_cvqif"]
+[ext_resource type="Script" uid="uid://cuk1grqw3n1qc" path="res://inventory/resources/spell_resources/item_staff.gd" id="1_v6nty"]
+[ext_resource type="PackedScene" uid="uid://btg8k8axc2k6a" path="res://inventory/scenes/spells/firebolt.tscn" id="3_1riub"]
+[ext_resource type="ArrayMesh" uid="uid://p6f8jxqa2rqq" path="res://items/firebolt_staff/item_god_firebolt_staff.obj" id="4_6md77"]
+
+[resource]
+script = ExtResource("1_v6nty")
+spell_scene = ExtResource("3_1riub")
+cooldown = 0.1
+id = 1000
+item_name = "Firebolt Staff"
+icon = ExtResource("1_cvqif")
+max_stack = 1
+world_mesh = ExtResource("4_6md77")
+metadata/_custom_type_script = "uid://cuk1grqw3n1qc"

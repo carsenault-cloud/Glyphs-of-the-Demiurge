@@ -6,6 +6,7 @@ const CS := TerrainConfig.CHUNK_SIZE
 @export var target: Node3D
 @export var world_seed := 23456
 @export var chunk_material: Material
+@export var player_inventory: PlayerInventory
 @export var biome_defs: Array[TerrainBiome] = []
 
 @onready var player = $Player
@@ -25,7 +26,12 @@ func _ready() -> void:
 	DirAccess.make_dir_recursive_absolute(save_dir)
 	player.terrain = self
 	
-	set_player()
+	var player_data := PlayerSave.load_data(world_seed)
+	if not player_data.is_empty() and player_data.has("position"):
+		PlayerSave.apply(player_data, target, player_inventory)
+		_ensure_chunk_loaded_at(target.global_position)
+	else:
+		set_player()
 	
 	''' DEBUG
 	var dbg := StandardMaterial3D.new()
@@ -50,6 +56,7 @@ func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		print("terrain_manager.gd: Close request notification received...")
 		save_all_dirty()
+		save_player()
 
 func _world_to_chunk(p: Vector3) -> Vector2i:
 	return Vector2i(floori(p.x / CS), floori(p.z / CS))
@@ -112,6 +119,7 @@ func _process_tier_queues() -> void:
 		var coord: Vector2i = large_load_queue.pop_front()
 		var chunk: TerrainChunk = chunks.get(coord)
 		if chunk != null and not chunk.large_tier_loaded:
+			@warning_ignore("unused_variable")
 			var def: TerrainBiome = biome_defs[chunk.data.biome] if chunk.data.biome < biome_defs.size() else null
 			chunk.load_large_tier()
 			large_budget -= 1
@@ -121,6 +129,7 @@ func _process_tier_queues() -> void:
 		var coord: Vector2i = small_load_queue.pop_front()
 		var chunk: TerrainChunk = chunks.get(coord)
 		if chunk != null and not chunk.small_tier_loaded:
+			@warning_ignore("unused_variable")
 			var def: TerrainBiome = biome_defs[chunk.data.biome] if chunk.data.biome < biome_defs.size() else null
 			chunk.load_small_tier()
 			small_budget -= 1
@@ -151,6 +160,7 @@ func _load_chunk(coord: Vector2i) -> void:
 		manifest.biome = data.biome
 		data.manifest = manifest
 
+		@warning_ignore("confusable_local_declaration")
 		var def: TerrainBiome = biome_defs[data.biome] if data.biome < biome_defs.size() else null
 		chunk.generate_manifest_entries(def, sample_height)   # may stamp deltas (structures)
 
@@ -307,3 +317,14 @@ func reset_world() -> void:
 	
 	last_center = Vector2i(1 << 30, 1 << 30)
 	set_player()
+
+func save_player() -> void:
+	if player_inventory != null:
+		PlayerSave.save(world_seed, target, player_inventory)
+
+func _ensure_chunk_loaded_at(pos: Vector3) -> void:
+	var coord := _world_to_chunk(pos)
+	if not chunks.has(coord):
+		_load_chunk(coord)
+		chunks[coord].rebuild(sample_height)
+		rebuild_queue.erase(coord)

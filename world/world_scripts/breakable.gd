@@ -17,6 +17,7 @@ func _ready() -> void:
 
 func take_damage(amount: float, tool_hardness: float = INF) -> bool:
 	if destroyed or tool_hardness < hardness:
+		print("breakable.gd: Tool not hard enough")
 		return false
 	health -= amount
 	if health <= 0.0:
@@ -29,7 +30,7 @@ func deconstruct() -> void:
 	_break(true)
 
 func _break(full_value: bool) -> void:
-	if destroyed:
+	if destroyed: # If it was already destroyed, exit the function
 		return
 	destroyed = true
 	health = 0.0
@@ -49,12 +50,9 @@ func _break(full_value: bool) -> void:
 	state_changed.emit(self)   # let the chunk persist this before the node is gone
 	broken.emit(result)
 
-	if not full_value:
-		_drop_materials(result)
-	else:
-		_drop_materials(materials)
+	_drop_materials(result)
 
-	get_parent().queue_free()
+	queue_free()
 
 func _drop_materials(stacks: Array[ItemStack]) -> void:
 	var origin: Vector3 = (get_parent() as Node3D).global_position if get_parent() is Node3D else Vector3.ZERO

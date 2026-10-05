@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DestructibleClutterDef" format=3 uid="uid://dyd4skc84vmik"]
+
+[ext_resource type="PackedScene" uid="uid://bjgttiem0wirr" path="res://world/trees/pine_tree_1.tscn" id="1_0o008"]
+[ext_resource type="Script" uid="uid://vgymivl3qanh" path="res://data/definitions/destructible_clutter_def.gd" id="1_7xtny"]
+
+[resource]
+script = ExtResource("1_7xtny")
+scene = ExtResource("1_0o008")
+max_slope = 0.5
+metadata/_custom_type_script = "uid://vgymivl3qanh"

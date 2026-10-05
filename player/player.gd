@@ -13,6 +13,8 @@ const BOOM_INCR = 0.5
 #@onready var interact_shape := $InteractionShapecast
 @onready var terrain: TerrainManager
 @onready var pause: Control
+@onready var inventory: PlayerInventory = $PlayerInventory
+@onready var focus_point: Vector3
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -49,15 +51,43 @@ func _unhandled_input(event: InputEvent) -> void:
 		#print("Current boom position: %d | Target boom position: %d" % [boom.position.x, boom.position.x * -1])
 		#boom.position = lerp(boom.position, Vector3(boom.position.x * -1, boom.position.z, boom.position.y), 0.1)
 
+	if event.is_action_pressed("god_primary"):
+		_handle_use()
 	if event.is_action_pressed("god_build"):
 		var ray_target: Vector3 = interact_ray.get_collision_point()
 		terrain.apply_brush(ray_target, 1.0, 1.0)
-	elif event.is_action_pressed("god_mine"):
-		var ray_target: Vector3 = interact_ray.get_collision_point()
-		terrain.apply_brush(ray_target, 1.0, -1.0)
+	if event.is_action_pressed("god_mine"):
+		_handle_mine()
 	
 	if event.is_action_pressed("god_debug_spawn"):
-		DroppedItem.spawn(ItemStack.new(ItemRegistry.get_item(0), 1), interact_ray.get_collision_point(), get_tree().current_scene)
+		DroppedItem.spawn(ItemStack.new(ItemRegistry.get_item(1000), 1), interact_ray.get_collision_point(), get_tree().current_scene)
+
+func _handle_mine() -> void:
+	var stack := inventory.get_selected_stack()
+	if stack == null or stack.item == null:
+		#print("_handle_mine: No item found")
+		return
+	if stack.item is ItemPickaxe:
+		#print("_handle_mine: I think this is a pickaxe")
+		_do_mining_raycast()
+
+func _handle_use() -> void:
+	var stack := inventory.get_selected_stack()
+	if stack == null or stack.item == null:
+		return
+	if stack.item is UsableItem:
+		inventory.use_selected(self)
+
+func _do_mining_raycast() -> void:
+	#print("_do_mining_raycast: Firing")
+	terrain.apply_brush(interact_ray.get_collision_point(), 1.0, -1.0)
+
+@warning_ignore("unused_parameter")
+func _process(delta: float) -> void:
+	if interact_ray.is_colliding():
+		focus_point = interact_ray.get_collision_point()
+	else:
+		focus_point = camera.global_position - camera.global_transform.basis.z * 1000.0
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.

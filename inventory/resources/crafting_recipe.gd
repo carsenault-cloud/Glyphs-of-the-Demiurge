@@ -1,8 +1,9 @@
 class_name CraftingRecipe
 extends Resource
 
-@export var output: ItemStack
+@export var station_id := "inventory"
+@export var output: Item
 
-func matches(_grid_items: Array[Item], _width: int, _height: int) -> bool:
+func matches(_slot_items: Array[Item]) -> bool:
 	push_error("CraftingRecipe.matches() must be overridden")
 	return false

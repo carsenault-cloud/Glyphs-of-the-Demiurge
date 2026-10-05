@@ -11,7 +11,7 @@ var crafting_recognizer := CraftingRecognizer.new()
 var crafting: CraftingStation
 
 func _ready() -> void:
-	crafting = CraftingStation.new(3, 3, crafting_recognizer)
+	crafting = CraftingStation.new(9, RecipeRegistry.recognizer, "inventory")
 	add_to_group("player_inventory")
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -22,9 +22,17 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 
 func get_selected_stack() -> ItemStack:
+	#print("get_selected_stack: firing")
 	return storage.get_stack(selected_slot)
 
 func use_selected(user: Node) -> void:
 	var s := get_selected_stack()
 	if s != null and s.item is UsableItem:
 		(s.item as UsableItem).use(user)
+
+func to_save_data() -> Dictionary:
+	return {"storage": storage.to_save_array(), "selected_slot": selected_slot}
+
+func load_save_data(d: Dictionary) -> void:
+	storage.load_from_save_array(d.get("storage", []))
+	selected_slot = int(d.get("selected_slot", 0))
