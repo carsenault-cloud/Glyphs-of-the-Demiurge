@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TerrainHeightProfile" format=3 uid="uid://6xomrkpovil8"]
+
+[ext_resource type="Script" uid="uid://y57iy3hfpi0m" path="res://world/world_scripts/terrain_height_profile.gd" id="1_msxc6"]
+
+[sub_resource type="Curve" id="Curve_b8oyn"]
+_data = [Vector2(0, 0.1102941), 0.0, 0.0, 0, 0, Vector2(0.32934135, 0.47058827), 0.0, 0.0, 0, 0, Vector2(1, 0.8529412), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[resource]
+script = ExtResource("1_msxc6")
+profile_name = "Plains"
+height_scale = 30.0
+height_curve = SubResource("Curve_b8oyn")
+metadata/_custom_type_script = "uid://y57iy3hfpi0m"

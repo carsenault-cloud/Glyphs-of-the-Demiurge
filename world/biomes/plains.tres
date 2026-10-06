@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="TerrainBiome" format=3 uid="uid://cvcoogle3yfwx"]
+
+[ext_resource type="Material" uid="uid://8jhvuw4l8npl" path="res://world/biomes/materials/default_material.tres" id="1_e24rf"]
+[ext_resource type="Script" uid="uid://bd4bf7rw4ia6o" path="res://world/world_scripts/clutter_mesh.gd" id="1_ls2ag"]
+[ext_resource type="Script" uid="uid://vgymivl3qanh" path="res://data/definitions/destructible_clutter_def.gd" id="2_r855j"]
+[ext_resource type="Resource" uid="uid://6xomrkpovil8" path="res://world/biomes/height_profiles/biome_plains.tres" id="3_06wk1"]
+[ext_resource type="Script" uid="uid://bcadeo8io544a" path="res://world/world_scripts/terrain_biome.gd" id="3_e24rf"]
+[ext_resource type="Script" uid="uid://km6sqajvrm56" path="res://data/definitions/structure_biome_entry.gd" id="4_06wk1"]
+
+[resource]
+script = ExtResource("3_e24rf")
+biome_name = "Plains"
+chunk_mat = ExtResource("1_e24rf")
+map_color = Color(0.77535075, 0.69507265, 0.25654396, 1)
+height_profile = ExtResource("3_06wk1")
+max_scale = 1.0
+metadata/_custom_type_script = "uid://bcadeo8io544a"

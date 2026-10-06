@@ -22,3 +22,10 @@ func close_menu() -> void:
 	inventory.visible = false
 	crafting.visible = false
 	opened = false
+	if CursorHeld.stack != null:
+		CursorHeld.drop_held_item()
+
+func _gui_input(event: InputEvent) -> void:
+	if opened and event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if CursorHeld.stack != null:
+			CursorHeld.drop_held_item()

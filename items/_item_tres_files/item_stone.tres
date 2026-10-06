@@ -9,5 +9,6 @@ script = ExtResource("1_f2jea")
 id = 0
 item_name = "Stone"
 icon = ExtResource("1_73j1v")
+max_stack = 128
 world_mesh = ExtResource("3_lneab")
 metadata/_custom_type_script = "uid://derofqhwhhilh"

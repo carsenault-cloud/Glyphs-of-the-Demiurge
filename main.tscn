@@ -1,33 +1,22 @@
 [gd_scene format=3 uid="uid://dk7ydxrgmq61t"]
 
 [ext_resource type="Script" uid="uid://d2soj7gfk30bl" path="res://world/world_scripts/terrain_manager.gd" id="1_0xm2m"]
-[ext_resource type="Shader" uid="uid://dkm60k6varsxu" path="res://world/world_shaders/terrain.gdshader" id="2_1bvp3"]
+[ext_resource type="Material" uid="uid://8jhvuw4l8npl" path="res://world/biomes/materials/default_material.tres" id="2_272bh"]
 [ext_resource type="PackedScene" uid="uid://du7no6cxy5w8e" path="res://player/player.tscn" id="2_h2yge"]
 [ext_resource type="Script" uid="uid://crrsqd2ya0p3i" path="res://world/world_scripts/world_environment_setup.gd" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://bcadeo8io544a" path="res://world/world_scripts/terrain_biome.gd" id="3_5vw27"]
 [ext_resource type="Resource" uid="uid://ddwfnv6pjww1s" path="res://world/biomes/pine_forest.tres" id="4_272bh"]
+[ext_resource type="Resource" uid="uid://dwnevsgrbwb7h" path="res://world/biomes/mountains.tres" id="5_5vw27"]
 [ext_resource type="PackedScene" uid="uid://2pr2ureotrjn" path="res://player/gui/hud.tscn" id="5_lquwl"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0xm2m"]
-render_priority = 0
-shader = ExtResource("2_1bvp3")
-shader_parameter/grass_color = Color(0.28, 0.45, 0.18, 1)
-shader_parameter/rock_color = Color(0.4, 0.37, 0.34, 1)
-shader_parameter/sand_color = Color(0.76, 0.7, 0.5, 1)
-shader_parameter/snow_color = Color(0.95, 0.95, 0.97, 1)
-shader_parameter/sand_height = -8.0
-shader_parameter/snow_height = 22.0
-shader_parameter/rock_slope = 0.75
-shader_parameter/show_chunk_checker = true
-shader_parameter/chunk_size = 32.0
+[ext_resource type="Resource" uid="uid://cvcoogle3yfwx" path="res://world/biomes/plains.tres" id="6_kek77"]
 
 [node name="Main" type="Node3D" unique_id=1805343782 node_paths=PackedStringArray("target", "player_inventory")]
 script = ExtResource("1_0xm2m")
 target = NodePath("Player")
-world_seed = 2456789
-chunk_material = SubResource("ShaderMaterial_0xm2m")
+world_seed = 546789
+chunk_material = ExtResource("2_272bh")
 player_inventory = NodePath("Player/PlayerInventory")
-biome_defs = Array[ExtResource("3_5vw27")]([ExtResource("4_272bh")])
+biome_defs = Array[ExtResource("3_5vw27")]([ExtResource("5_5vw27"), ExtResource("4_272bh"), ExtResource("6_kek77")])
 
 [node name="WorldSetup" type="Node3D" parent="." unique_id=1556177267]
 script = ExtResource("3_1bvp3")
@@ -36,6 +25,7 @@ script = ExtResource("3_1bvp3")
 
 [node name="CanvasLayer" parent="." unique_id=2023378604 instance=ExtResource("5_lquwl")]
 
+[connection signal="pressed" from="CanvasLayer/Pause/HBoxcontainer/VBoxContainer/ResetPlayer" to="." method="reset_player"]
 [connection signal="pressed" from="CanvasLayer/Pause/HBoxcontainer/VBoxContainer/ResetTerrain" to="." method="_on_reset_terrain_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause/HBoxcontainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause/HBoxcontainer/VBoxContainer/ClearTerrain" to="." method="reset_world"]

@@ -27,7 +27,10 @@ var manager: TerrainManager
 func setup(p_data: TerrainChunkData, material: Material) -> void:
 	data = p_data
 	position = Vector3(data.coord.x * CS, 0, data.coord.y * CS)
-	mesh_instance.material_override = material
+	if material != null:
+		mesh_instance.material_override = material
+	if material == null:
+		print("setup() got a null material for chunk ", p_data.coord)
 
 func _ready() -> void:
 	add_child(mesh_instance)
@@ -100,6 +103,8 @@ func _generate_layer_entries(clutter_list: Array[ClutterMesh], density: float, b
 				continue
 
 		var h := data.get_height_interpolated(lx, lz)
+		if h < 0.0:
+			continue
 		var rot_x := deg_to_rad(rng.randf_range(-chosen.max_x_rot, chosen.max_x_rot))
 		var rot_z := deg_to_rad(rng.randf_range(-chosen.max_z_rot, chosen.max_z_rot))
 		var rot_y := rng.randf_range(0.0, TAU)
@@ -151,6 +156,8 @@ func _generate_destructible_entries(defs: Array[DestructibleClutterDef], density
 				continue
 
 		var h := data.get_height_interpolated(lx, lz)
+		if h < 0.0:
+			continue
 		var rot_x := deg_to_rad(rng.randf_range(-chosen.max_x_rot, chosen.max_x_rot))
 		var rot_z := deg_to_rad(rng.randf_range(-chosen.max_z_rot, chosen.max_z_rot))
 		var rot_y := rng.randf_range(0.0, TAU)
@@ -200,6 +207,10 @@ func _generate_one_structure_entry(entry_def: StructureBiomeEntry, rng: RandomNu
 	var lx := rng.randf_range(reach, CS - reach)
 	var lz := rng.randf_range(reach, CS - reach)
 	var h := data.get_height_interpolated(lx, lz)
+	if h < 0.0:
+		structures_root.remove_child(probe)
+		probe.queue_free()
+		return
 	var yaw := rng.randf_range(0.0, TAU)
 
 	probe.position = Vector3(lx, h, lz)
@@ -348,7 +359,11 @@ func _wire_persistence(inst: Node, entry_index: int) -> void:
 			if sub_states.has(rel_path):
 				var s: Dictionary = sub_states[rel_path]
 				if s.get("destroyed", false):
-					b.queue_free()
+					var piece := b.get_piece()
+					if piece != null:
+						piece.queue_free()
+					else:
+						b.queue_free()
 					continue
 				if s.get("health", -1.0) >= 0.0:
 					b.health = s["health"]

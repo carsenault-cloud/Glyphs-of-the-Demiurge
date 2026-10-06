@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TerrainHeightProfile" format=3 uid="uid://bgy0okqreeoud"]
+
+[ext_resource type="Script" uid="uid://y57iy3hfpi0m" path="res://world/world_scripts/terrain_height_profile.gd" id="1_hi23d"]
+
+[sub_resource type="Curve" id="Curve_ey1x0"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.041916177, 0.24615383), 0.0, 0.0, 0, 0, Vector2(0.20658682, 0.53076917), -1.3947244, -1.3947244, 0, 0, Vector2(1, 0.876923), 1.6226746, 0.0, 0, 0]
+point_count = 4
+
+[resource]
+script = ExtResource("1_hi23d")
+height_scale = 30.0
+height_curve = SubResource("Curve_ey1x0")
+metadata/_custom_type_script = "uid://y57iy3hfpi0m"

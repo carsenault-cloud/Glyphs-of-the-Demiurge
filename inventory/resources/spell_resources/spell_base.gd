@@ -44,7 +44,7 @@ func _expire() -> void:
 
 ## Shared hit-resolution so every spell type damages things the same way.
 func hit(target: Object) -> void:
-	print("spell_base.gd: hit target: ", target)
+	#print("spell_base.gd: hit target: ", target)
 	if target is Breakable:
-		print("Target is breakable")
+		#print("Target is breakable")
 		(target as Breakable).take_damage(damage)

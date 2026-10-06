@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://dk7ydxrgmq61t"]
+
+[ext_resource type="Script" uid="uid://d2soj7gfk30bl" path="res://world/world_scripts/terrain_manager.gd" id="1_0xm2m"]
+[ext_resource type="Material" uid="uid://8jhvuw4l8npl" path="res://world/biomes/materials/default_material.tres" id="2_272bh"]
+[ext_resource type="PackedScene" uid="uid://du7no6cxy5w8e" path="res://player/player.tscn" id="2_h2yge"]
+[ext_resource type="Script" uid="uid://crrsqd2ya0p3i" path="res://world/world_scripts/world_environment_setup.gd" id="3_1bvp3"]
+[ext_resource type="Script" uid="uid://bcadeo8io544a" path="res://world/world_scripts/terrain_biome.gd" id="3_5vw27"]
+[ext_resource type="Resource" uid="uid://ddwfnv6pjww1s" path="res://world/biomes/pine_forest.tres" id="4_272bh"]
+[ext_resource type="Resource" uid="uid://dwnevsgrbwb7h" path="res://world/biomes/mountains.tres" id="5_5vw27"]
+[ext_resource type="PackedScene" uid="uid://2pr2ureotrjn" path="res://player/gui/hud.tscn" id="5_lquwl"]
+
+[node name="Main" type="Node3D" unique_id=1805343782 node_paths=PackedStringArray("target", "player_inventory")]
+script = ExtResource("1_0xm2m")
+target = NodePath("Player")
+world_seed = 123456789
+chunk_material = ExtResource("2_272bh")
+player_inventory = NodePath("Player/PlayerInventory")
+biome_defs = Array[ExtResource("3_5vw27")]([ExtResource("4_272bh"), ExtResource("5_5vw27")])
+
+[node name="WorldSetup" type="Node3D" parent="." unique_id=1556177267]
+script = ExtResource("3_1bvp3")
+
+[node name="Player" parent="." unique_id=221860260 instance=ExtResource("2_h2yge")]
+
+[node name="CanvasLayer" parent="." unique_id=2023378604 instance=ExtResource("5_lquwl")]
+
+[connection signal="pressed" from="CanvasLayer/Pause/HBoxcontainer/VBoxContainer/ResetTerrain" to="." method="_on_reset_terrain_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause/HBoxcontainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause/HBoxcontainer/VBoxContainer/ClearTerrain" to="." method="reset_world"]
+
+[editable path="Player"]
+[editable path="CanvasLayer"]
+[editable path="CanvasLayer/Pause"]

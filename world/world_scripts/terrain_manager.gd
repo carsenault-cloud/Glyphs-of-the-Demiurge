@@ -4,10 +4,16 @@ extends Node3D
 const CS := TerrainConfig.CHUNK_SIZE
 
 @export var target: Node3D
-@export var world_seed := 23456
+@export var world_seed: int
 @export var chunk_material: Material
 @export var player_inventory: PlayerInventory
 @export var biome_defs: Array[TerrainBiome] = []
+@export var water_level := 0.0
+@export var ocean_threshold := 0.62
+@export var ocean_falloff := 0.08
+@export var ocean_depth := -25.0
+@export var ocean_color := Color(0.1, 0.35, 0.75)
+@export var map_size := 512
 
 @onready var player = $Player
 
@@ -19,9 +25,27 @@ var rebuild_queue: Dictionary = {}		# Vector2i -> true
 var large_load_queue: Array[Vector2i] = []
 var small_load_queue: Array[Vector2i] = []
 var last_center := Vector2i(1 << 30, 1 << 30)
+var world_map: WorldMapWriter
+var _map_dirty_count := 0
 
 func _ready() -> void:
-	generator = TerrainGenerator.new(world_seed)
+	if world_seed != 0:
+		generator = TerrainGenerator.new(world_seed)
+	else:
+		world_seed = randi()
+		generator = TerrainGenerator.new(world_seed)
+	print("World Seed: ", world_seed)
+	generator.ocean_threshold = ocean_threshold
+	generator.ocean_falloff = ocean_falloff
+	generator.ocean_depth = ocean_depth
+	var fallback_profile := TerrainHeightProfile.new()
+	generator.profiles.clear()
+	if biome_defs.is_empty():
+		generator.profiles.append(fallback_profile)
+	else:
+		for b in biome_defs:
+			generator.profiles.append(b.height_profile if b.height_profile != null else fallback_profile)
+	world_map = WorldMapWriter.new(world_seed, map_size)
 	save_dir = "user://worlds/%d/chunks" % world_seed
 	DirAccess.make_dir_recursive_absolute(save_dir)
 	player.terrain = self
@@ -57,6 +81,8 @@ func _notification(what: int) -> void:
 		print("terrain_manager.gd: Close request notification received...")
 		save_all_dirty()
 		save_player()
+		if world_map != null:
+			world_map.save_if_dirty()
 
 func _world_to_chunk(p: Vector3) -> Vector2i:
 	return Vector2i(floori(p.x / CS), floori(p.z / CS))
@@ -134,7 +160,6 @@ func _process_tier_queues() -> void:
 			chunk.load_small_tier()
 			small_budget -= 1
 
-# terrain_manager.gd — replace _load_chunk entirely
 func _load_chunk(coord: Vector2i) -> void:
 	var data := TerrainChunkData.new(coord)
 	data.generate_base(generator)
@@ -159,6 +184,21 @@ func _load_chunk(coord: Vector2i) -> void:
 		var manifest := ChunkManifest.new()
 		manifest.biome = data.biome
 		data.manifest = manifest
+		
+		if world_map != null:
+			var cx := coord.x * CS + CS * 0.5
+			var cz := coord.y * CS + CS * 0.5
+			var color: Color
+			if generator.is_ocean_at(cx, cz):
+				color = ocean_color
+			else:
+				var b: TerrainBiome = biome_defs[data.biome] if data.biome < biome_defs.size() else null
+				color = b.map_color if b != null else Color.WHITE
+			world_map.set_chunk(coord, color)
+			_map_dirty_count += 1
+			if _map_dirty_count >= 16:
+				world_map.save_if_dirty()
+				_map_dirty_count = 0
 
 		@warning_ignore("confusable_local_declaration")
 		var def: TerrainBiome = biome_defs[data.biome] if data.biome < biome_defs.size() else null
@@ -274,6 +314,10 @@ func clear_delta() -> void:
 			if chunks.has(c):
 				rebuild_queue[c] = true
 
+	set_player()
+
+func reset_player() -> void:
+	player.global_position = Vector3.ZERO
 	set_player()
 
 func set_player() -> void:

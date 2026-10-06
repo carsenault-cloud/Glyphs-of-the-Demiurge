@@ -1,9 +1,9 @@
 extends CharacterBody3D
 
 
-const SPEED = 8.0
-const SPRINT_MULT = 2.0
-const JUMP_VELOCITY = 4.5
+const SPEED = 16.0 # Default is 8.0 (for now)
+const SPRINT_MULT = 4.0
+const JUMP_VELOCITY = 20 # Default: 4.5
 const LOOK_SPEED = 0.01
 const BOOM_INCR = 0.5
 
@@ -95,7 +95,7 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 	# Handle jump.
-	if Input.is_action_pressed("god_jump") and is_on_floor():
+	if Input.is_action_pressed("god_jump"): # and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.

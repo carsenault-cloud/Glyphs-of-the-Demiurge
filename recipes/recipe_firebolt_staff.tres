@@ -3,10 +3,17 @@
 [ext_resource type="Script" uid="uid://bhffop12ahd0p" path="res://inventory/resources/shaped_recipe.gd" id="1_a8wh6"]
 [ext_resource type="Resource" uid="uid://cmimdghcem72u" path="res://items/_item_tres_files/item_firebolt_staff.tres" id="1_o8tal"]
 [ext_resource type="Script" uid="uid://derofqhwhhilh" path="res://inventory/resources/item.gd" id="2_83ijr"]
+[ext_resource type="Script" uid="uid://cj0l4p0xglnkr" path="res://inventory/resources/item_stack.gd" id="2_qhaaw"]
 [ext_resource type="Resource" uid="uid://dyirca8mycu5e" path="res://items/_item_tres_files/item_stone.tres" id="3_o8tal"]
+
+[sub_resource type="Resource" id="Resource_o8tal"]
+script = ExtResource("2_qhaaw")
+item = ExtResource("1_o8tal")
+count = 1
+metadata/_custom_type_script = "uid://cj0l4p0xglnkr"
 
 [resource]
 script = ExtResource("1_a8wh6")
 slots = Array[ExtResource("2_83ijr")]([ExtResource("3_o8tal"), null, null, ExtResource("3_o8tal"), null, null, ExtResource("3_o8tal"), null, null])
-output = ExtResource("1_o8tal")
+output = SubResource("Resource_o8tal")
 metadata/_custom_type_script = "uid://bhffop12ahd0p"

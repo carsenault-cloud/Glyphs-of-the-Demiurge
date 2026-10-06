@@ -11,7 +11,7 @@ static func chunk_path(dir: String, coord: Vector2i) -> String:
 	return "%s/chunk_%d_%d.dat" % [dir, coord.x, coord.y]
 
 static func save_deltas(dir: String, coord: Vector2i, deltas: PackedFloat32Array) -> bool:
-	print("terrain_storage.gd: Saving deltas...")
+	#print("terrain_storage.gd: Saving deltas...")
 	var f := FileAccess.open(chunk_path(dir, coord), FileAccess.WRITE)
 	if f == null:
 		push_error("Failed to save chunk %s: %s" % [coord, error_string(FileAccess.get_open_error())])

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="TerrainHeightProfile" format=3 uid="uid://yow5vav7c8w8"]
+
+[ext_resource type="Script" uid="uid://y57iy3hfpi0m" path="res://world/world_scripts/terrain_height_profile.gd" id="1_k6b84"]
+
+[sub_resource type="Curve" id="Curve_7n5fj"]
+_data = [Vector2(0, 0.2), 0.0, -0.16275677, 0, 0, Vector2(0.5, 0.7), 0.0, 0.0, 0, 0, Vector2(0.90000004, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+metadata/_snap_enabled = true
+
+[resource]
+script = ExtResource("1_k6b84")
+profile_name = "Mountains"
+height_scale = 80.0
+octaves = 6
+height_curve = SubResource("Curve_7n5fj")
+vertical_offset = 100.0
+metadata/_custom_type_script = "uid://y57iy3hfpi0m"

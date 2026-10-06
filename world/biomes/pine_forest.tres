@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="TerrainBiome" format=3 uid="uid://ddwfnv6pjww1s"]
 
+[ext_resource type="Material" uid="uid://b8jhec5qasg62" path="res://world/biomes/materials/pine_forest.material" id="1_66jc0"]
 [ext_resource type="Script" uid="uid://bd4bf7rw4ia6o" path="res://world/world_scripts/clutter_mesh.gd" id="1_qbvpd"]
 [ext_resource type="Script" uid="uid://vgymivl3qanh" path="res://data/definitions/destructible_clutter_def.gd" id="2_sa5qr"]
+[ext_resource type="Resource" uid="uid://bgy0okqreeoud" path="res://world/biomes/height_profiles/biome_forest.tres" id="3_5wxdn"]
 [ext_resource type="Resource" uid="uid://dyd4skc84vmik" path="res://world/clutter/large_veg/pine_tree_1.tres" id="3_66jc0"]
 [ext_resource type="Script" uid="uid://bcadeo8io544a" path="res://world/world_scripts/terrain_biome.gd" id="3_be2nw"]
 [ext_resource type="Script" uid="uid://km6sqajvrm56" path="res://data/definitions/structure_biome_entry.gd" id="4_66jc0"]
@@ -9,6 +11,10 @@
 
 [resource]
 script = ExtResource("3_be2nw")
+biome_name = "Pine Forest"
+chunk_mat = ExtResource("1_66jc0")
+map_color = Color(0, 0.41789415, 0.16806006, 1)
+height_profile = ExtResource("3_5wxdn")
 large_veg = Array[ExtResource("2_sa5qr")]([ExtResource("3_66jc0")])
 structures = Array[ExtResource("4_66jc0")]([ExtResource("6_5wxdn")])
 metadata/_custom_type_script = "uid://bcadeo8io544a"

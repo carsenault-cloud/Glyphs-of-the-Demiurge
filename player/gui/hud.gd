@@ -3,7 +3,6 @@ extends CanvasLayer
 @onready var pause_menu := $Pause
 @onready var player_inventory := $CombinedInventory
 
-
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("god_menu"): ## Swap mouse mode (Open menu eventually)
 		if pause_menu.opened: 

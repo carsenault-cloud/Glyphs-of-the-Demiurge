@@ -5,10 +5,18 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_g4v7s"]
 radius = 0.3
 
-[node name="DroppedItem" type="Area3D" unique_id=496967403]
+[sub_resource type="SphereShape3D" id="SphereShape3D_yf5fn"]
+
+[node name="DroppedItem" type="RigidBody3D" unique_id=185851704]
+lock_rotation = true
 script = ExtResource("1_sn3gv")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=361242193]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=275472578]
 shape = SubResource("SphereShape3D_g4v7s")
+
+[node name="PickupArea" type="Area3D" parent="." unique_id=174067817]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickupArea" unique_id=1284888157]
+shape = SubResource("SphereShape3D_yf5fn")

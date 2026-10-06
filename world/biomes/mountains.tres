@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="TerrainBiome" format=3 uid="uid://dwnevsgrbwb7h"]
+
+[ext_resource type="Script" uid="uid://bd4bf7rw4ia6o" path="res://world/world_scripts/clutter_mesh.gd" id="1_1rogt"]
+[ext_resource type="Shader" uid="uid://dkm60k6varsxu" path="res://world/world_shaders/terrain.gdshader" id="1_kltfj"]
+[ext_resource type="Resource" uid="uid://yow5vav7c8w8" path="res://world/biomes/height_profiles/biome_mountain.tres" id="2_1l6j7"]
+[ext_resource type="Script" uid="uid://vgymivl3qanh" path="res://data/definitions/destructible_clutter_def.gd" id="2_1pxi3"]
+[ext_resource type="Texture2D" uid="uid://b5gdbghqmem82" path="res://world/biomes/materials/textures/default_stone_texture.tres" id="2_itfyr"]
+[ext_resource type="Script" uid="uid://bcadeo8io544a" path="res://world/world_scripts/terrain_biome.gd" id="3_1l6j7"]
+[ext_resource type="Texture2D" uid="uid://bjvtcmsr7rvch" path="res://world/biomes/materials/textures/default_sand_texture.tres" id="3_gbi4f"]
+[ext_resource type="Texture2D" uid="uid://con38nnj6s0p7" path="res://world/biomes/materials/textures/default_snow_texture.tres" id="4_05ybo"]
+[ext_resource type="Script" uid="uid://km6sqajvrm56" path="res://data/definitions/structure_biome_entry.gd" id="4_7vye2"]
+[ext_resource type="Resource" uid="uid://dyd4skc84vmik" path="res://world/clutter/large_veg/pine_tree_1.tres" id="4_rv8vw"]
+
+[sub_resource type="Gradient" id="Gradient_gbi4f"]
+colors = PackedColorArray(0.7632032, 0.8480194, 0.83329225, 1, 0.89684576, 0.9223767, 0.929522, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_itfyr"]
+noise_type = 4
+frequency = 0.0046
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kltfj"]
+noise = SubResource("FastNoiseLite_itfyr")
+color_ramp = SubResource("Gradient_gbi4f")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cbfbt"]
+render_priority = 0
+shader = ExtResource("1_kltfj")
+shader_parameter/grass_texture = SubResource("NoiseTexture2D_kltfj")
+shader_parameter/rock_texture = ExtResource("2_itfyr")
+shader_parameter/sand_texture = ExtResource("3_gbi4f")
+shader_parameter/snow_texture = ExtResource("4_05ybo")
+shader_parameter/uv_scale = 0.1
+shader_parameter/sand_height = 0.0
+shader_parameter/snow_height = 15.0
+shader_parameter/rock_slope = 0.75
+shader_parameter/show_chunk_checker = false
+shader_parameter/chunk_size = 32.0
+
+[resource]
+script = ExtResource("3_1l6j7")
+biome_name = "Mountains"
+chunk_mat = SubResource("ShaderMaterial_cbfbt")
+map_color = Color(0.48178947, 0.48178947, 0.48178947, 1)
+height_profile = ExtResource("2_1l6j7")
+large_veg = Array[ExtResource("2_1pxi3")]([ExtResource("4_rv8vw")])
+min_scale = 0.3
+max_scale = 0.7
+metadata/_custom_type_script = "uid://bcadeo8io544a"

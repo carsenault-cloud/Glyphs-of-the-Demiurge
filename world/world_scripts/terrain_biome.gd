@@ -2,7 +2,9 @@ class_name TerrainBiome
 extends Resource
 
 @export var biome_name := "Biome"
-@export var chunk_mat: Material
+@export var chunk_mat: ShaderMaterial
+@export var map_color := Color.WHITE
+@export var height_profile: TerrainHeightProfile
 @export var ground_clutter: Array[ClutterMesh]
 @export var ground_veg: Array[ClutterMesh]
 @export var large_veg: Array[DestructibleClutterDef]

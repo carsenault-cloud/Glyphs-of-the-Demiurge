@@ -15,9 +15,16 @@ var destroyed := false
 func _ready() -> void:
 	health = max_health
 
+func get_piece() -> Node3D:
+	var as_node: Node = self
+	var as_3d := as_node as Node3D
+	if as_3d != null:
+		return as_3d
+	return get_parent() as Node3D
+
 func take_damage(amount: float, tool_hardness: float = INF) -> bool:
 	if destroyed or tool_hardness < hardness:
-		print("breakable.gd: Tool not hard enough")
+		#print("breakable.gd: Tool not hard enough")
 		return false
 	health -= amount
 	if health <= 0.0:
@@ -49,12 +56,17 @@ func _break(full_value: bool) -> void:
 
 	state_changed.emit(self)   # let the chunk persist this before the node is gone
 	broken.emit(result)
+	
+	print("_break: Dropping ", result)
+	var piece := get_piece()
+	_drop_materials(result, piece)
 
-	_drop_materials(result)
+	if piece != null:
+		piece.queue_free()
+	else:
+		queue_free()
 
-	queue_free()
-
-func _drop_materials(stacks: Array[ItemStack]) -> void:
-	var origin: Vector3 = (get_parent() as Node3D).global_position if get_parent() is Node3D else Vector3.ZERO
+func _drop_materials(stacks: Array[ItemStack], piece: Node3D) -> void:
+	var origin: Vector3 = piece.global_position if piece != null else Vector3.ZERO
 	for stack in stacks:
 		DroppedItem.spawn(stack, origin + Vector3(randf_range(-0.3, 0.3), 0.2, randf_range(-0.3, 0.3)), get_tree().current_scene)

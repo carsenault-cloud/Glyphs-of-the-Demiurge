@@ -28,6 +28,8 @@ func _refresh() -> void:
 		count_label.text = ""
 	else:
 		icon.texture = stack.item.icon
+		icon.custom_maximum_size = Vector2(64, 64)
+		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
 		count_label.text = str(stack.count) if stack.count > 1 else ""
 
 func _gui_input(event: InputEvent) -> void:
@@ -36,7 +38,7 @@ func _gui_input(event: InputEvent) -> void:
 	if event.button_index == MOUSE_BUTTON_LEFT:
 		_handle_left_click()
 	elif event.button_index == MOUSE_BUTTON_RIGHT:
-		_handle_right_click()
+		_handle_right_click(event.shift_pressed, event.ctrl_pressed)
 
 func _handle_left_click() -> void:
 	var held := CursorHeld.stack
@@ -62,10 +64,47 @@ func _handle_left_click() -> void:
 		inventory.set_stack(index, held)
 		CursorHeld.set_stack(mine)
 
-func _handle_right_click() -> void:
+func _handle_right_click(shift: bool, ctrl: bool) -> void:
 	var mine := inventory.get_stack(index)
-	if mine != null and mine.item is UsableItem:
+	if mine == null:
+		return
+	
+	if shift and CursorHeld.stack == null:
+		_split_half(mine)
+		return
+	
+	if ctrl:
+		_take_one(mine)
+		return
+	
+	if mine.item is UsableItem:
 		(mine.item as UsableItem).use(_find_user())
+
+func _split_half(mine: ItemStack) -> void:
+	if mine.count <= 1:
+		CursorHeld.set_stack(mine)
+		inventory.set_stack(index, null)
+		return
+	var half := ceili(mine.count / 2.0)
+	var held := ItemStack.new(mine.item, half)
+	mine.count -= half
+	CursorHeld.set_stack(held)
+	inventory.set_stack(index, mine)
+
+func _take_one(mine: ItemStack) -> void:
+	var held := CursorHeld.stack
+	if held != null and (not held.can_merge_with(mine) or held.count >= held.item.max_stack):
+		return
+	mine.count -= 1
+	if held == null:
+		CursorHeld.set_stack(ItemStack.new(mine.item, 1))
+	else:
+		held.count += 1
+		CursorHeld.set_stack(held)
+	inventory.set_stack(index, null if mine.count <= 0 else mine)
 
 func _find_user() -> Node:
 	return get_tree().get_first_node_in_group("player")
+
+
+	

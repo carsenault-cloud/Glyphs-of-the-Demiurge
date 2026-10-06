@@ -11,16 +11,17 @@ offset_bottom = 40.0
 mouse_filter = 1
 script = ExtResource("1_gicjo")
 grid_slot_scene = ExtResource("1_ty4o4")
-grid_container = NodePath("CraftingUI")
-output_slot = NodePath("OutputSlot")
+grid_container = NodePath("HBoxContainer/CraftingUI")
+output_slot = NodePath("HBoxContainer/OutputSlot")
 
-[node name="CraftingUI" type="GridContainer" parent="." unique_id=1210973811]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1134129202]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="CraftingUI" type="GridContainer" parent="HBoxContainer" unique_id=1210973811]
+layout_mode = 2
 columns = 3
 
-[node name="OutputSlot" parent="." unique_id=1817604770 instance=ExtResource("1_ty4o4")]
-layout_mode = 0
-offset_right = 64.0
-offset_bottom = 64.0
+[node name="OutputSlot" parent="HBoxContainer" unique_id=1817604770 instance=ExtResource("1_ty4o4")]
+layout_mode = 2

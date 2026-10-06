@@ -1,8 +1,16 @@
 [gd_scene format=3 uid="uid://bjgttiem0wirr"]
 
 [ext_resource type="ArrayMesh" uid="uid://d07i7xvq5dblf" path="res://world/assets/trees/pine_tree_1.obj" id="1_b1qsv"]
+[ext_resource type="Script" uid="uid://cj0l4p0xglnkr" path="res://inventory/resources/item_stack.gd" id="2_lmf3e"]
 [ext_resource type="Texture2D" uid="uid://bvo363k1mnail" path="res://world/assets/trees/pine_tree_1.png" id="2_ohjbw"]
 [ext_resource type="Script" uid="uid://cu6n44hh0o3bh" path="res://world/world_scripts/breakable.gd" id="3_ohjbw"]
+[ext_resource type="Resource" uid="uid://d4ar5vpllbsgx" path="res://items/_item_tres_files/item_wood.tres" id="3_qxohh"]
+
+[sub_resource type="Resource" id="Resource_cpr08"]
+script = ExtResource("2_lmf3e")
+item = ExtResource("3_qxohh")
+count = 8
+metadata/_custom_type_script = "uid://cj0l4p0xglnkr"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4v7s"]
 albedo_texture = ExtResource("2_ohjbw")
@@ -13,6 +21,8 @@ height = 4.7574463
 radius = 0.57958984
 
 [node name="Node3D" type="StaticBody3D" unique_id=1648499686]
+script = ExtResource("3_ohjbw")
+materials = Array[ExtResource("2_lmf3e")]([SubResource("Resource_cpr08")])
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1186999441]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
@@ -22,6 +32,3 @@ surface_material_override/0 = SubResource("StandardMaterial3D_g4v7s")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=855963330]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3787231, 0)
 shape = SubResource("CylinderShape3D_g4v7s")
-
-[node name="Breakable" type="Node" parent="." unique_id=1454936878]
-script = ExtResource("3_ohjbw")

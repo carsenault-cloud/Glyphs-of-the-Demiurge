@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://d4ar5vpllbsgx"]
+
+[ext_resource type="Script" uid="uid://derofqhwhhilh" path="res://inventory/resources/item.gd" id="1_2ohq5"]
+[ext_resource type="Texture2D" uid="uid://yx1c2aano5mr" path="res://items/wood/item_wood_icon.png" id="1_b4s42"]
+[ext_resource type="ArrayMesh" uid="uid://bji5swvc8j8ho" path="res://items/wood/item_wood.obj" id="3_tgew1"]
+
+[resource]
+script = ExtResource("1_2ohq5")
+id = 1
+item_name = "Wood"
+icon = ExtResource("1_b4s42")
+max_stack = 128
+world_mesh = ExtResource("3_tgew1")
+metadata/_custom_type_script = "uid://derofqhwhhilh"

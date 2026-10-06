@@ -1,16 +1,17 @@
 class_name DroppedItem
-extends Area3D
+extends RigidBody3D
 
 const ROTATE_SPEED := 1.5
-const PICKUP_DELAY := 0.5   # seconds before pickup is allowed, so a just-dropped item doesn't instantly re-collect
+const PICKUP_DELAY := 0.5
 
 var stack: ItemStack
 var _age := 0.0
 
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
+@onready var pickup_area: Area3D = $PickupArea
 
 func _ready() -> void:
-	body_entered.connect(_on_body_entered)
+	pickup_area.body_entered.connect(_on_body_entered)
 	_apply_visual()
 
 func setup(p_stack: ItemStack) -> void:
@@ -26,7 +27,6 @@ func _apply_visual() -> void:
 		mesh_instance.scale = stack.item.world_mesh_scale
 		return
 
-	# Fallback: icon billboard, so an item is visible before it has a real model
 	var quad := QuadMesh.new()
 	quad.size = Vector2(0.4, 0.4)
 	var mat := StandardMaterial3D.new()
@@ -38,7 +38,7 @@ func _apply_visual() -> void:
 
 func _process(delta: float) -> void:
 	_age += delta
-	rotate_y(ROTATE_SPEED * delta)
+	mesh_instance.rotate_y(ROTATE_SPEED * delta)   # cosmetic spin on the mesh only — the body itself has rotation locked
 
 func _on_body_entered(body: Node3D) -> void:
 	if _age < PICKUP_DELAY or stack == null:
@@ -54,12 +54,14 @@ func _on_body_entered(body: Node3D) -> void:
 	if leftover <= 0:
 		queue_free()
 	else:
-		stack.count = leftover   # inventory was full — item stays on the ground with what didn't fit
+		stack.count = leftover
 
-static func spawn(p_stack: ItemStack, world_position: Vector3, parent: Node) -> DroppedItem:
+static func spawn(p_stack: ItemStack, world_position: Vector3, parent: Node, toss_velocity: Vector3 = Vector3.ZERO) -> DroppedItem:
 	var scene: PackedScene = load("res://world/dropped_item.tscn")
 	var instance: DroppedItem = scene.instantiate()
 	parent.add_child(instance)
 	instance.global_position = world_position
 	instance.setup(p_stack)
+	if toss_velocity != Vector3.ZERO:
+		instance.linear_velocity = toss_velocity
 	return instance
