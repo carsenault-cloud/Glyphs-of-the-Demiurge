@@ -9,12 +9,11 @@ const BOOM_INCR = 0.5
 
 @onready var boom := $SpringArm3D
 @onready var camera := $SpringArm3D/Camera3D
-@onready var interact_ray := $InteractionRaycast
-#@onready var interact_shape := $InteractionShapecast
 @onready var terrain: TerrainManager
 @onready var pause: Control
 @onready var inventory: PlayerInventory = $PlayerInventory
 @onready var focus_point: Vector3
+@onready var bmc: BuildModeController = get_tree().get_first_node_in_group("build_mode_controller")
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -33,19 +32,17 @@ func _unhandled_input(event: InputEvent) -> void:
 		rotation.y = rotation.y - event.relative.x * LOOK_SPEED
 		boom.rotation.x = boom.rotation.x - event.relative.y * LOOK_SPEED
 		boom.rotation.x = clamp(boom.rotation.x, deg_to_rad(-90), deg_to_rad(90))
-		interact_ray.rotation.x = boom.rotation.x - event.relative.y * LOOK_SPEED
-		interact_ray.rotation.x = clamp(boom.rotation.x, deg_to_rad(-90), deg_to_rad(90))
-		#interact_shape.rotation.x = boom.rotation.x - event.relative.y * LOOK_SPEED
-		#interact_shape.rotation.x = clamp(boom.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 		
-	if Input.is_action_pressed("god_boom_zin"): ## Zoom in
-		boom.spring_length -= BOOM_INCR
-		boom.spring_length = clampf(boom.spring_length, 1.0, 5.0)
-	elif Input.is_action_pressed("god_boom_zout"): ## Zoom out
-		boom.spring_length += BOOM_INCR
-		boom.spring_length = clampf(boom.spring_length, 1.0, 5.0)
-	if Input.is_action_just_pressed("god_shoulder_swap"): ## Swap camera shoulder
-		boom.position.x *= -1
+	
+	if bmc == null or not bmc.active:
+		if Input.is_action_pressed("god_boom_zin"): ## Zoom in
+			boom.spring_length -= BOOM_INCR
+			boom.spring_length = clampf(boom.spring_length, 1.0, 5.0)
+		elif Input.is_action_pressed("god_boom_zout"): ## Zoom out
+			boom.spring_length += BOOM_INCR
+			boom.spring_length = clampf(boom.spring_length, 1.0, 5.0)
+		if Input.is_action_just_pressed("god_shoulder_swap"): ## Swap camera shoulder
+			boom.position.x *= -1
 		## NOTE: Currently, this commented code gets the camera stuck directly behind the player, and the print
 		## always reads 0 for both values. Nearest I can figure, it's some issue with lerp I don't understand.
 		#print("Current boom position: %d | Target boom position: %d" % [boom.position.x, boom.position.x * -1])
@@ -54,15 +51,15 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("god_primary"):
 		_handle_use()
 	if event.is_action_pressed("god_build"):
-		var ray_target: Vector3 = interact_ray.get_collision_point()
-		terrain.apply_brush(ray_target, 1.0, 1.0)
+		pass
 	if event.is_action_pressed("god_mine"):
 		_handle_mine()
 	
-	if event.is_action_pressed("god_debug_spawn"):
-		DroppedItem.spawn(ItemStack.new(ItemRegistry.get_item(1000), 1), interact_ray.get_collision_point(), get_tree().current_scene)
-
+	'if event.is_action_pressed("god_debug_spawn"):
+		DroppedItem.spawn(ItemStack.new(ItemRegistry.get_item(1000), 1), interact_ray.get_collision_point(), get_tree().current_scene)'
 func _handle_mine() -> void:
+	if bmc != null and bmc.active:
+		return
 	var stack := inventory.get_selected_stack()
 	if stack == null or stack.item == null:
 		#print("_handle_mine: No item found")
@@ -72,6 +69,8 @@ func _handle_mine() -> void:
 		_do_mining_raycast()
 
 func _handle_use() -> void:
+	if bmc != null and bmc.active:
+		return
 	var stack := inventory.get_selected_stack()
 	if stack == null or stack.item == null:
 		return
@@ -80,14 +79,8 @@ func _handle_use() -> void:
 
 func _do_mining_raycast() -> void:
 	#print("_do_mining_raycast: Firing")
-	terrain.apply_brush(interact_ray.get_collision_point(), 1.0, -1.0)
-
-@warning_ignore("unused_parameter")
-func _process(delta: float) -> void:
-	if interact_ray.is_colliding():
-		focus_point = interact_ray.get_collision_point()
-	else:
-		focus_point = camera.global_position - camera.global_transform.basis.z * 1000.0
+	#terrain.apply_brush(interact_ray.get_collision_point(), 1.0, -1.0)
+	pass
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.

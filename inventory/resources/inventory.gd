@@ -85,3 +85,23 @@ func load_from_save_array(saved: Array) -> void:
 			var item := ItemRegistry.get_item(entry.get("id", ""))
 			_slots[i] = ItemStack.new(item, int(entry.get("count", 1))) if item != null else null
 		changed.emit(i)
+
+func count_item(id: int) -> int:
+	var total := 0
+	for i in size:
+		var s := _slots[i]
+		if s != null and s.item != null and s.item.id == id:
+			total += s.count
+	return total
+
+func remove_item_by_id(id: int, count: int) -> int:
+	var remaining := count
+	for i in size:
+		if remaining <= 0:
+			break
+		var s := _slots[i]
+		if s != null and s.item != null and s.item.id == id:
+			var take := mini(s.count, remaining)
+			remove_at(i, take)
+			remaining -= take
+	return remaining

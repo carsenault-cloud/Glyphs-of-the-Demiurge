@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://blexa0ikg45b4"]
+
+[ext_resource type="Script" uid="uid://dr583l870f4fj" path="res://building/building_scripts/build_piece.gd" id="1_1mnno"]
+[ext_resource type="Script" uid="uid://cj0l4p0xglnkr" path="res://inventory/resources/item_stack.gd" id="2_6nnlw"]
+[ext_resource type="Resource" uid="uid://d4ar5vpllbsgx" path="res://items/_item_tres_files/item_wood.tres" id="3_gs7sl"]
+[ext_resource type="Script" uid="uid://cu6n44hh0o3bh" path="res://world/world_scripts/breakable.gd" id="4_gs7sl"]
+[ext_resource type="ArrayMesh" uid="uid://dkm8qjqhr5c11" path="res://building/scenes/wood/buildable_wood_wall/buildable_wood_wall.obj" id="4_vmg6a"]
+[ext_resource type="Texture2D" uid="uid://b3sgwrjhajmxh" path="res://building/scenes/wood/buildable_wood_wall/buildable_wood_wall_texture.png" id="5_3hn6h"]
+[ext_resource type="Script" uid="uid://72vdc5h64ht8" path="res://building/building_scripts/snap_point.gd" id="6_n5xvr"]
+
+[sub_resource type="Resource" id="Resource_1mnno"]
+script = ExtResource("2_6nnlw")
+item = ExtResource("3_gs7sl")
+count = 1
+metadata/_custom_type_script = "uid://cj0l4p0xglnkr"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4v7s"]
+albedo_texture = ExtResource("5_3hn6h")
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(0.2, 2, 2)
+
+[node name="BuildableWoodWall" type="Node3D" unique_id=1041790701]
+script = ExtResource("1_1mnno")
+piece_id = "1"
+materials = Array[ExtResource("2_6nnlw")]([SubResource("Resource_1mnno")])
+piece_name = "Wooden Wall"
+metadata/_custom_type_script = "uid://dr583l870f4fj"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=63976324]
+script = ExtResource("4_gs7sl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1589306166]
+mesh = ExtResource("4_vmg6a")
+surface_material_override/0 = SubResource("StandardMaterial3D_g4v7s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1404699100]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_g4v7s")
+
+[node name="SnapPoint" type="Marker3D" parent="." unique_id=1333652445]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1)
+script = ExtResource("6_n5xvr")
+metadata/_custom_type_script = "uid://72vdc5h64ht8"
+
+[node name="SnapPoint2" type="Marker3D" parent="." unique_id=1110423878]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1, 1)
+script = ExtResource("6_n5xvr")
+metadata/_custom_type_script = "uid://72vdc5h64ht8"

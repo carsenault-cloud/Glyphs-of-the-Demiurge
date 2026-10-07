@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemHammer" format=3 uid="uid://b8ukl00185qyt"]
+
+[ext_resource type="Texture2D" uid="uid://dloj25krlelqv" path="res://items/hammer/item_hammer_icon.png" id="1_t07ge"]
+[ext_resource type="Script" uid="uid://b70rcpevs3o2" path="res://inventory/resources/item_hammer.gd" id="1_ut6wm"]
+[ext_resource type="ArrayMesh" uid="uid://bg821provis5o" path="res://items/hammer/item_hammer.obj" id="3_b1fw7"]
+
+[resource]
+script = ExtResource("1_ut6wm")
+id = 999999
+item_name = "Build Hammer"
+icon = ExtResource("1_t07ge")
+max_stack = 1
+world_mesh = ExtResource("3_b1fw7")
+metadata/_custom_type_script = "uid://b70rcpevs3o2"

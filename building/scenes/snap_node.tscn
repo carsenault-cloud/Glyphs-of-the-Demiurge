@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://dhfu4jnhorime"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3gngh"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_57qmd"]
+material = SubResource("StandardMaterial3D_3gngh")
+top_radius = 0.0
+bottom_radius = 0.2
+height = 0.3
+radial_segments = 12
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d0u6y"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_g4v7s"]
+material = SubResource("StandardMaterial3D_d0u6y")
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.5
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_yf5fn"]
+height = 0.1
+radial_segments = 12
+rings = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_57qmd"]
+albedo_color = Color(0, 0, 1, 1)
+
+[node name="SnapNode" type="Marker3D" unique_id=703214474]
+gizmo_extents = 1.0
+
+[node name="ArrowTip" type="MeshInstance3D" parent="." unique_id=1123659346]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, -0.65)
+mesh = SubResource("CylinderMesh_57qmd")
+
+[node name="ArrowShaft" type="MeshInstance3D" parent="." unique_id=1401736639]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -0.25)
+mesh = SubResource("CylinderMesh_g4v7s")
+
+[node name="ArrowBase" type="MeshInstance3D" parent="." unique_id=339156292]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0.05)
+mesh = SubResource("CylinderMesh_yf5fn")
+surface_material_override/0 = SubResource("StandardMaterial3D_57qmd")

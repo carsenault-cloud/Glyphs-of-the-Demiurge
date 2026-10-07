@@ -57,7 +57,7 @@ func _break(full_value: bool) -> void:
 	state_changed.emit(self)   # let the chunk persist this before the node is gone
 	broken.emit(result)
 	
-	print("_break: Dropping ", result)
+	#print("_break: Dropping ", result)
 	var piece := get_piece()
 	_drop_materials(result, piece)
 

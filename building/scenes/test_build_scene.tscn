@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://bryfjddk42img"]
+
+[ext_resource type="Script" uid="uid://dr583l870f4fj" path="res://building/building_scripts/build_piece.gd" id="1_7tt3m"]
+[ext_resource type="Script" uid="uid://cj0l4p0xglnkr" path="res://inventory/resources/item_stack.gd" id="2_8ds3c"]
+[ext_resource type="Resource" uid="uid://d4ar5vpllbsgx" path="res://items/_item_tres_files/item_wood.tres" id="3_nw0fj"]
+[ext_resource type="ArrayMesh" uid="uid://bkm4ftppriius" path="res://building/scenes/test/test_wood_wall/test_wood_wall.obj" id="4_fwcu3"]
+[ext_resource type="Script" uid="uid://72vdc5h64ht8" path="res://building/building_scripts/snap_point.gd" id="5_8ds3c"]
+
+[sub_resource type="Resource" id="Resource_g4v7s"]
+script = ExtResource("2_8ds3c")
+item = ExtResource("3_nw0fj")
+count = 3
+metadata/_custom_type_script = "uid://cj0l4p0xglnkr"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(0.12646484, 1.9350586, 1.9942017)
+
+[node name="TestBuildScene" type="Node3D" unique_id=1600787033]
+script = ExtResource("1_7tt3m")
+piece_id = "0"
+materials = Array[ExtResource("2_8ds3c")]([SubResource("Resource_g4v7s")])
+piece_name = "TestWoodWall"
+metadata/_custom_type_script = "uid://dr583l870f4fj"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=237669809]
+mesh = ExtResource("4_fwcu3")
+
+[node name="SnapPoint" type="Marker3D" parent="." unique_id=256708212]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1)
+script = ExtResource("5_8ds3c")
+metadata/_custom_type_script = "uid://72vdc5h64ht8"
+
+[node name="SnapPoint2" type="Marker3D" parent="." unique_id=194631099]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1)
+script = ExtResource("5_8ds3c")
+metadata/_custom_type_script = "uid://72vdc5h64ht8"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1758164255]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=598914054]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0021972656, 1.0246582, 0.0030212402)
+shape = SubResource("BoxShape3D_g4v7s")
