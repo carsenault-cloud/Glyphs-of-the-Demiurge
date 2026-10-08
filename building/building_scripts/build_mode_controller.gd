@@ -5,8 +5,8 @@ extends Node
 @export var player_inventory: PlayerInventory
 @export var ghost_scene_default: PackedScene   # single test piece for now — a real piece-select menu is a follow-up
 
-var interact_range: int
-@onready var interact_ray: RayCast3D = $BuildRay
+@export var deconstruct_reach := 6.0
+@export_flags_3d_physics var deconstruct_mask := 1
 var ghost: BuildGhost
 var active := false
 
@@ -45,7 +45,6 @@ func _process(_delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if not active:
 		return
-	interact_ray.target_position = Vector3(0, 0, -5.0)
 	if event.is_action_pressed("build_rotate_cw"):
 		ghost.rotate_step(1)
 	elif event.is_action_pressed("build_rotate_ccw"):
@@ -55,18 +54,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("build_cancel"):
 		_exit_build_mode()
 	elif event.is_action_pressed("god_deconstruct"):
-		interact_ray.target_position = Vector3(0, 0, -10.0)
-		var target := interact_ray.get_collider()
-		if target != null:
-			if target.buildable and target.is_class("Breakable"): target.deconstruct()
+		_try_deconstruct()
 
 func _confirm_placement() -> void:
 	if not ghost.is_valid or ghost.piece_scene == null:
-		#print("confirm blocked: is_valid=", ghost.is_valid, " piece_scene=", ghost.piece_scene)
 		return
 	var piece_def := ghost.get_build_piece()
 	if piece_def == null:
-		#print("confirm blocked: no BuildPiece found in ghost instance")
 		return
 
 	if player_inventory != null:
@@ -74,18 +68,48 @@ func _confirm_placement() -> void:
 			if stack == null or stack.item == null:
 				continue
 			if player_inventory.storage.count_item(stack.item.id) < stack.count:
-				return   # not enough materials — silently refuse for now
+				return
+
+	var terrain: TerrainManager = get_tree().get_first_node_in_group("terrain_manager")
+	if terrain == null:
+		push_warning("BuildModeController: no node in group 'terrain_manager'")
+		return
+	var placed = terrain.place_built_piece(ghost.piece_scene, ghost.get_placement_transform())
+	if placed == null:
+		return
+
+	if player_inventory != null:
 		for stack in piece_def.materials:
 			if stack == null or stack.item == null:
 				continue
 			player_inventory.storage.remove_item_by_id(stack.item.id, stack.count)
-
-	var placed := ghost.piece_scene.instantiate()
-	get_tree().current_scene.add_child(placed)
-	placed.global_transform = ghost.get_placement_transform()
 
 func _hammer_still_selected() -> bool:
 	if player_inventory == null:
 		return false
 	var stack := player_inventory.get_selected_stack()
 	return stack != null and stack.item is ItemHammer
+
+func _try_deconstruct() -> void:
+	var from := camera.global_position
+	var to := from - camera.global_transform.basis.z * deconstruct_reach
+	var query := PhysicsRayQueryParameters3D.create(from, to, deconstruct_mask)
+	var player := get_tree().get_first_node_in_group("player")
+	if player is CollisionObject3D:
+		query.exclude = [player.get_rid()]
+	var hit := camera.get_world_3d().direct_space_state.intersect_ray(query)
+	if hit.is_empty():
+		return
+	var b := _find_breakable(hit.collider)
+	if b != null and b.buildable:
+		b.deconstruct()
+
+
+
+func _find_breakable(node: Node) -> Breakable:
+	if node is Breakable:
+		return node
+	for child in node.get_children():
+		if child is Breakable:
+			return child
+	return null

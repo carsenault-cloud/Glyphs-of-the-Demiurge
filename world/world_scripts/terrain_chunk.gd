@@ -18,6 +18,7 @@ var ground_veg_root := MultiMeshInstance3D.new()
 var large_veg_root := MultiMeshInstance3D.new()
 var large_clutter_root := MultiMeshInstance3D.new()
 var structures_root := Node3D.new()
+var built_root := Node3D.new()
 var large_destructibles_root := Node3D.new()
 var small_destructibles_root := Node3D.new()
 var large_tier_loaded := false
@@ -40,6 +41,7 @@ func _ready() -> void:
 	add_child(large_clutter_root)
 	add_child(large_veg_root)
 	add_child(structures_root)
+	add_child(built_root)
 	body.add_child(shape_node)
 	height_shape.map_width = N
 	height_shape.map_depth = N
@@ -225,10 +227,89 @@ func _generate_one_structure_entry(entry_def: StructureBiomeEntry, rng: RandomNu
 	structures_root.remove_child(probe)
 	probe.queue_free()
 
-# ---------- instancing (runs every load, fresh or saved — pure replay, no RNG) ----------
+func add_built_piece(scene: PackedScene, world_xform: Transform3D) -> Node3D:
+	if scene.resource_path == "":
+		push_warning("Built piece scene has no saved path, can't persist it")
+		return null
+	var local := global_transform.affine_inverse() * world_xform
+	var q := local.basis.get_rotation_quaternion()
+	var entry := {
+		"uid": _next_built_uid(),
+		"res": scene.resource_path,
+		"pos": [local.origin.x, local.origin.y, local.origin.z],
+		"rot": [q.x, q.y, q.z, q.w],
+		"breakables": {},
+	}
+	data.manifest.built.append(entry)
+	var inst := _spawn_built_piece(entry)
+	if manager != null:
+		manager.request_save_manifest(data.coord)
+	return inst
+
+func _spawn_built_piece(entry: Dictionary) -> Node3D:
+	var res_path: String = entry.get("res", "")
+	if res_path == "" or not ResourceLoader.exists(res_path):
+		push_warning("Built piece references missing scene: %s" % res_path)
+		return null
+	var scene := load(res_path)
+	if not (scene is PackedScene):
+		return null
+	var inst: Node3D = scene.instantiate()
+	built_root.add_child(inst)
+	var p: Array = entry["pos"]
+	var r: Array = entry["rot"]
+	var q := Quaternion(r[0], r[1], r[2], r[3]).normalized()
+	inst.transform = Transform3D(Basis(q), Vector3(p[0], p[1], p[2]))
+	_wire_built_piece(inst, int(entry["uid"]))
+	return inst
+
+func _next_built_uid() -> int:
+	var m := 0
+	for e in data.manifest.built:
+		m = maxi(m, int(e.get("uid", 0)))
+	return m + 1
+
+func _find_built_index(uid: int) -> int:
+	for i in data.manifest.built.size():
+		if int(data.manifest.built[i].get("uid", -1)) == uid:
+			return i
+	return -1
+
+func _wire_built_piece(inst: Node, uid: int) -> void:
+	var idx := _find_built_index(uid)
+	if idx < 0:
+		return
+	var sub: Dictionary = data.manifest.built[idx].get("breakables", {})
+	for b in _find_breakables(inst):
+		var rel_path := String(inst.get_path_to(b))
+		if sub.has(rel_path):
+			b.health = sub[rel_path].get("health", b.health)
+		b.state_changed.connect(_on_built_breakable_changed.bind(uid, rel_path))
+
+func _on_built_breakable_changed(b: Breakable, uid: int, rel_path: String) -> void:
+	var idx := _find_built_index(uid)
+	if idx < 0:
+		return
+	if b.destroyed:
+		data.manifest.built.remove_at(idx)   # player-made, so no tombstone needed
+	else:
+		var entry: Dictionary = data.manifest.built[idx]
+		var sub: Dictionary = entry.get("breakables", {})
+		sub[rel_path] = {"health": b.health}
+		entry["breakables"] = sub
+	if manager != null:
+		manager.request_save_manifest(data.coord)
+
+# ---------- instancing (no RNG) ----------
 
 func instantiate_structures() -> void:
 	_instantiate_category("structure", structures_root)
+
+func instantiate_built_pieces() -> void:
+	if data.manifest == null:
+		return
+	for entry in data.manifest.built:
+		_spawn_built_piece(entry)
 
 func load_large_tier() -> void:
 	if large_tier_loaded or data.manifest == null:

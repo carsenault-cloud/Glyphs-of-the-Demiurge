@@ -11,23 +11,15 @@ const BOOM_INCR = 0.5
 @onready var camera := $SpringArm3D/Camera3D
 @onready var terrain: TerrainManager
 @onready var pause: Control
-@onready var inventory: PlayerInventory = $PlayerInventory
 @onready var focus_point: Vector3
+@onready var focus_ray := $SpringArm3D/Camera3D/FocusRay
+@onready var inventory: PlayerInventory = $PlayerInventory
 @onready var bmc: BuildModeController = get_tree().get_first_node_in_group("build_mode_controller")
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _unhandled_input(event: InputEvent) -> void:	
-	'''if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED and Input.is_action_pressed("god_freelook"):
-		boom.rotation.x = boom.rotation.x - event.relative.y * LOOK_SPEED
-		boom.rotation.x = clamp(boom.rotation.x, deg_to_rad(-90), deg_to_rad(90))
-		boom.rotation.y = boom.rotation.y - event.relative.x * LOOK_SPEED
-		await get_tree().create_timer(0.25)
-		if !Input.is_action_pressed("god_freelook"):
-			for child in get_children():
-				child.rotation.y = rotation.y'''
-		
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED: ## Pan the camera and interaction raycast
 		rotation.y = rotation.y - event.relative.x * LOOK_SPEED
 		boom.rotation.x = boom.rotation.x - event.relative.y * LOOK_SPEED
@@ -35,6 +27,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 	
 	if bmc == null or not bmc.active:
+		if focus_ray.is_colliding():
+			focus_point = focus_ray.get_collision_point()
+		else:
+			focus_point = $SpringArm3D/Camera3D/FocusRay/FallbackFocus.global_position
 		if Input.is_action_pressed("god_boom_zin"): ## Zoom in
 			boom.spring_length -= BOOM_INCR
 			boom.spring_length = clampf(boom.spring_length, 1.0, 5.0)

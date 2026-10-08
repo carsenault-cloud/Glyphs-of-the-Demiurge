@@ -29,6 +29,7 @@ var world_map: WorldMapWriter
 var _map_dirty_count := 0
 
 func _ready() -> void:
+	add_to_group("terrain_manager")
 	if world_seed != 0:
 		generator = TerrainGenerator.new(world_seed)
 	else:
@@ -212,6 +213,7 @@ func _load_chunk(coord: Vector2i) -> void:
 	var def: TerrainBiome = biome_defs[data.biome] if data.biome < biome_defs.size() else null
 	chunk.apply_ground_material(def)
 	chunk.instantiate_structures()
+	chunk.instantiate_built_pieces()
 
 	if data.has_edits():
 		for dz in range(-1, 2):
@@ -372,3 +374,9 @@ func _ensure_chunk_loaded_at(pos: Vector3) -> void:
 		_load_chunk(coord)
 		chunks[coord].rebuild(sample_height)
 		rebuild_queue.erase(coord)
+
+func place_built_piece(scene: PackedScene, world_xform: Transform3D) -> Node3D:
+	var chunk: TerrainChunk = chunks.get(_world_to_chunk(world_xform.origin))
+	if chunk == null:
+		return null
+	return chunk.add_built_piece(scene, world_xform)

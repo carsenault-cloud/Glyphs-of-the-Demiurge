@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://c2u5u6twt7386"]
+
+[ext_resource type="Script" uid="uid://dr583l870f4fj" path="res://building/building_scripts/build_piece.gd" id="1_y605d"]
+[ext_resource type="Script" uid="uid://cj0l4p0xglnkr" path="res://inventory/resources/item_stack.gd" id="2_vpdtu"]
+[ext_resource type="Resource" uid="uid://dyirca8mycu5e" path="res://items/_item_tres_files/item_stone.tres" id="3_udg6q"]
+[ext_resource type="Script" uid="uid://cu6n44hh0o3bh" path="res://world/world_scripts/breakable.gd" id="4_2s5pw"]
+[ext_resource type="ArrayMesh" uid="uid://bh0p6c7li2xf3" path="res://building/scenes/stone/stone_wall/buildable_stone_wall.obj" id="5_2vhqf"]
+[ext_resource type="Texture2D" uid="uid://dl4yw2c4u2sxr" path="res://building/scenes/stone/stone_wall/buildable_stone_wall_texture.png" id="6_ooegm"]
+[ext_resource type="Script" uid="uid://72vdc5h64ht8" path="res://building/building_scripts/snap_point.gd" id="7_2vhqf"]
+
+[sub_resource type="Resource" id="Resource_g4v7s"]
+script = ExtResource("2_vpdtu")
+item = ExtResource("3_udg6q")
+count = 4
+metadata/_custom_type_script = "uid://cj0l4p0xglnkr"
+
+[sub_resource type="Resource" id="Resource_2vhqf"]
+script = ExtResource("2_vpdtu")
+item = ExtResource("3_udg6q")
+count = 4
+metadata/_custom_type_script = "uid://cj0l4p0xglnkr"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4v7s"]
+albedo_texture = ExtResource("6_ooegm")
+texture_filter = 0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(1, 2, 4)
+
+[node name="BuildableStoneWall" type="Node3D" unique_id=393837803]
+script = ExtResource("1_y605d")
+piece_id = "2"
+materials = Array[ExtResource("2_vpdtu")]([SubResource("Resource_g4v7s")])
+piece_name = "Stone Wall"
+metadata/_custom_type_script = "uid://dr583l870f4fj"
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=976311126]
+script = ExtResource("4_2s5pw")
+materials = Array[ExtResource("2_vpdtu")]([SubResource("Resource_2vhqf")])
+buildable = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=391701744]
+mesh = ExtResource("5_2vhqf")
+surface_material_override/0 = SubResource("StandardMaterial3D_g4v7s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=959362412]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_g4v7s")
+
+[node name="SnapPoint" type="Marker3D" parent="." unique_id=1884082921]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 1, -2)
+script = ExtResource("7_2vhqf")
+metadata/_custom_type_script = "uid://72vdc5h64ht8"
+
+[node name="SnapPoint3" type="Marker3D" parent="." unique_id=1499576872]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.3, 1, 2)
+script = ExtResource("7_2vhqf")
+metadata/_custom_type_script = "uid://72vdc5h64ht8"
+
+[node name="SnapPoint4" type="Marker3D" parent="." unique_id=1009011679]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -0.3, 1, 2)
+script = ExtResource("7_2vhqf")
+metadata/_custom_type_script = "uid://72vdc5h64ht8"
+
+[node name="SnapPoint2" type="Marker3D" parent="." unique_id=320878237]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 1, -2)
+script = ExtResource("7_2vhqf")
+metadata/_custom_type_script = "uid://72vdc5h64ht8"
