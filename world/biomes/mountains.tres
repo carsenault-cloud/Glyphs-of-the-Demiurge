@@ -4,10 +4,10 @@
 [ext_resource type="Shader" uid="uid://dkm60k6varsxu" path="res://world/world_shaders/terrain.gdshader" id="1_kltfj"]
 [ext_resource type="Resource" uid="uid://yow5vav7c8w8" path="res://world/biomes/height_profiles/biome_mountain.tres" id="2_1l6j7"]
 [ext_resource type="Script" uid="uid://vgymivl3qanh" path="res://data/definitions/destructible_clutter_def.gd" id="2_1pxi3"]
-[ext_resource type="Texture2D" uid="uid://b5gdbghqmem82" path="res://world/biomes/materials/textures/default_stone_texture.tres" id="2_itfyr"]
+[ext_resource type="Texture2D" uid="uid://b5gdbghqmem82" path="res://world/biomes/materials/textures/v1/default_stone_texture.tres" id="2_itfyr"]
 [ext_resource type="Script" uid="uid://bcadeo8io544a" path="res://world/world_scripts/terrain_biome.gd" id="3_1l6j7"]
-[ext_resource type="Texture2D" uid="uid://bjvtcmsr7rvch" path="res://world/biomes/materials/textures/default_sand_texture.tres" id="3_gbi4f"]
-[ext_resource type="Texture2D" uid="uid://con38nnj6s0p7" path="res://world/biomes/materials/textures/default_snow_texture.tres" id="4_05ybo"]
+[ext_resource type="Texture2D" uid="uid://bjvtcmsr7rvch" path="res://world/biomes/materials/textures/v1/default_sand_texture.tres" id="3_gbi4f"]
+[ext_resource type="Texture2D" uid="uid://con38nnj6s0p7" path="res://world/biomes/materials/textures/v1/default_snow_texture.tres" id="4_05ybo"]
 [ext_resource type="Script" uid="uid://km6sqajvrm56" path="res://data/definitions/structure_biome_entry.gd" id="4_7vye2"]
 [ext_resource type="Resource" uid="uid://dyd4skc84vmik" path="res://world/clutter/large_veg/pine_tree_1.tres" id="4_rv8vw"]
 

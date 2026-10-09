@@ -1,11 +1,15 @@
 [gd_resource type="Resource" script_class="ItemHammer" format=3 uid="uid://b8ukl00185qyt"]
 
 [ext_resource type="Texture2D" uid="uid://dloj25krlelqv" path="res://items/hammer/item_hammer_icon.png" id="1_t07ge"]
-[ext_resource type="Script" uid="uid://b70rcpevs3o2" path="res://inventory/resources/item_hammer.gd" id="1_ut6wm"]
+[ext_resource type="Script" uid="uid://bg3372hrq7g2t" path="res://data/definitions/build_piece_def.gd" id="2_ti7t8"]
 [ext_resource type="ArrayMesh" uid="uid://bg821provis5o" path="res://items/hammer/item_hammer.obj" id="3_b1fw7"]
+[ext_resource type="Resource" uid="uid://ctr2rpsq08twj" path="res://building/scenes/wood/buildable_wood_wall/buildable_wood_wall_def.tres" id="3_bd2jr"]
+[ext_resource type="Resource" uid="uid://cuefec2erblnq" path="res://building/scenes/stone/stone_wall/buildable_stone_wall_def.tres" id="4_rcm5t"]
+[ext_resource type="Script" uid="uid://b70rcpevs3o2" path="res://items/hammer/item_hammer.gd" id="5_cjvgx"]
 
 [resource]
-script = ExtResource("1_ut6wm")
+script = ExtResource("5_cjvgx")
+pieces = Array[ExtResource("2_ti7t8")]([ExtResource("3_bd2jr"), ExtResource("4_rcm5t")])
 id = 999999
 item_name = "Build Hammer"
 icon = ExtResource("1_t07ge")

@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://kgj8onvg0hqk"]
+
+[ext_resource type="ArrayMesh" uid="uid://vxkk01cesa4a" path="res://world/assets/rocks/low_res_rocks/glyph_stone_1.obj" id="1_e2vih"]
+[ext_resource type="Material" uid="uid://csppr0bjhagbx" path="res://world/assets/rocks/grey_stone_material.tres" id="2_hfe01"]
+[ext_resource type="PackedScene" uid="uid://b5romrho8vi4j" path="res://world/assets/proximity_sprite.tscn" id="3_0knv0"]
+[ext_resource type="Texture2D" uid="uid://dk56tyot58hos" path="res://world/assets/glyphs/ice_glyph_lesser.png" id="3_g3d5e"]
+[ext_resource type="Material" uid="uid://bnu3m5q20xyrq" path="res://world/assets/glyphs/glyph_materials/ice_material.tres" id="5_d0no8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yf5fn"]
+size = Vector3(1, 1.5, 0.25)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_yf5fn"]
+height = 0.25
+radius = 1.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xq282"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_g3d5e")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="PointMesh" id="PointMesh_oam0k"]
+material = ExtResource("5_d0no8")
+
+[node name="Node3D" type="Node3D" unique_id=1467434726]
+
+[node name="IceGlyphLesserStone" type="StaticBody3D" parent="." unique_id=319145595]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="IceGlyphLesserStone" unique_id=1328640326]
+mesh = ExtResource("1_e2vih")
+surface_material_override/0 = ExtResource("2_hfe01")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="IceGlyphLesserStone" unique_id=2084113450]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("BoxShape3D_yf5fn")
+
+[node name="TerrainForm" type="CollisionShape3D" parent="." unique_id=676292753]
+shape = SubResource("CylinderShape3D_yf5fn")
+
+[node name="ProximitySprite" parent="." unique_id=365762045 instance=ExtResource("3_0knv0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0.126)
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_xq282")
+base_color = Color(0.21176471, 0.5921569, 0.6156863, 1)
+
+[node name="CPUParticles3D" parent="ProximitySprite" index="1" unique_id=69348780]
+amount = 25
+mesh = SubResource("PointMesh_oam0k")
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 0.25
+emission_ring_radius = 0.4
+emission_ring_inner_radius = 0.3
+emission_ring_cone_angle = 90.0
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0, 1)
+radial_accel_max = 1.0
+tangential_accel_max = 1.0
+
+[editable path="ProximitySprite"]

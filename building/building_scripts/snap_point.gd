@@ -5,6 +5,7 @@ extends Marker3D
 # Once this list is settled, I'll switch it to an enum, but for now keep it small until
 # things work
 @export var snap_type := "generic"
+@export_enum("horizontal", "vertical") var snap_group: String = "horizontal"
 
 @export var snap_radius := 0.5
 

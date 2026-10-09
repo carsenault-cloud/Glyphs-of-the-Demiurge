@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://8dsjyqxvokt6"]
+
+[ext_resource type="Script" uid="uid://yw0lsrcsqjyl" path="res://building/build_menu.gd" id="1_je41l"]
+[ext_resource type="PackedScene" uid="uid://cp1dbb22ke15i" path="res://building/build_piece_button.tscn" id="2_lax0v"]
+
+[node name="BuildMenu" type="PanelContainer" unique_id=1333644022 node_paths=PackedStringArray("tabs", "grid", "info_label")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_je41l")
+button_scene = ExtResource("2_lax0v")
+tabs = NodePath("MarginContainer/VBoxContainer/TabBar")
+grid = NodePath("MarginContainer/VBoxContainer/GridContainer")
+info_label = NodePath("MarginContainer/VBoxContainer/Label")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1396747668]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1910242264]
+layout_mode = 2
+
+[node name="TabBar" type="TabBar" parent="MarginContainer/VBoxContainer" unique_id=1614210095]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer" unique_id=4768596]
+layout_mode = 2
+columns = 6
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=494147232]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2

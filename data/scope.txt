@@ -1,0 +1,14 @@
+====================
+====== ITEMS =======
+====================
+
+
+999999 - Build Hammer
+
+-------- MATERIALS ----------
+0 - Stone
+1 - Wood
+
+--------- STAVES --------
+1000 - Firebolt Staff
+1001 - Thunder Staff

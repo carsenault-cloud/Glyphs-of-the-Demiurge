@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://csppr0bjhagbx"]
+
+[ext_resource type="Texture2D" uid="uid://cfie2l1dbc1x1" path="res://world/assets/rocks/grey_stone_texture.tres" id="1_q26ax"]
+
+[resource]
+albedo_texture = ExtResource("1_q26ax")
+texture_filter = 0

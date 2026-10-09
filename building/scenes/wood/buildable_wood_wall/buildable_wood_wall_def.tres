@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BuildPieceDef" format=3 uid="uid://ctr2rpsq08twj"]
+
+[ext_resource type="Texture2D" uid="uid://xqt7ovegfxwg" path="res://building/scenes/wood/buildable_wood_wall/buildable_wood_wall_icon.png" id="1_11a3n"]
+[ext_resource type="PackedScene" uid="uid://blexa0ikg45b4" path="res://building/scenes/wood/buildable_wood_wall/buildable_wood_wall.tscn" id="2_hlq6i"]
+[ext_resource type="Script" uid="uid://bg3372hrq7g2t" path="res://data/definitions/build_piece_def.gd" id="3_t46vl"]
+
+[resource]
+script = ExtResource("3_t46vl")
+display_name = "Wooden Wall"
+category = "Structure"
+icon = ExtResource("1_11a3n")
+scene = ExtResource("2_hlq6i")
+metadata/_custom_type_script = "uid://bg3372hrq7g2t"

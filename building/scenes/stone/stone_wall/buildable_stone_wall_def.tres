@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="BuildPieceDef" format=3 uid="uid://cuefec2erblnq"]
+
+[ext_resource type="Texture2D" uid="uid://b5gdbghqmem82" path="res://world/biomes/materials/textures/v1/default_stone_texture.tres" id="1_13kdu"]
+[ext_resource type="Script" uid="uid://bg3372hrq7g2t" path="res://data/definitions/build_piece_def.gd" id="1_e7lrv"]
+[ext_resource type="PackedScene" uid="uid://c2u5u6twt7386" path="res://building/scenes/stone/stone_wall/buildable_stone_wall.tscn" id="2_ups6n"]
+
+[resource]
+script = ExtResource("1_e7lrv")
+display_name = "Stone Wall"
+category = "Structure"
+icon = ExtResource("1_13kdu")
+scene = ExtResource("2_ups6n")
+metadata/_custom_type_script = "uid://bg3372hrq7g2t"

@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b44sl40ehvwsu" path="res://player/gui/pause.tscn" id="1_70rxs"]
 [ext_resource type="Script" uid="uid://lb0ennd2krjs" path="res://player/gui/hud.gd" id="1_tudbt"]
 [ext_resource type="PackedScene" uid="uid://d2u4bwkqe5sjk" path="res://inventory/scenes/combined_inventory.tscn" id="2_1mb2g"]
+[ext_resource type="PackedScene" uid="uid://8dsjyqxvokt6" path="res://building/build_menu.tscn" id="4_1u8pj"]
 
 [node name="HUD" type="CanvasLayer" unique_id=2023378604]
 process_mode = 3
@@ -12,3 +13,5 @@ script = ExtResource("1_tudbt")
 
 [node name="Pause" parent="." unique_id=303216382 instance=ExtResource("1_70rxs")]
 z_index = 20
+
+[node name="BuildMenu" parent="." unique_id=1333644022 instance=ExtResource("4_1u8pj")]

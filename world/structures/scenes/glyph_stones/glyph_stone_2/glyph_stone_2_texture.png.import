@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://co8s1cktq6h1d"
-path.s3tc="res://.godot/imported/test_wood_wall_texture.png-c396dd6845e9f900b232b42e3cdf7a1c.s3tc.ctex"
+uid="uid://qlbdc5i3kl3a"
+path.s3tc="res://.godot/imported/glyph_stone_2_texture.png-936e762f46ea0ea26ad19e2cba198d6e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://building/scenes/test/test_wood_wall/test_wood_wall_texture.png"
-dest_files=["res://.godot/imported/test_wood_wall_texture.png-c396dd6845e9f900b232b42e3cdf7a1c.s3tc.ctex"]
+source_file="res://world/structures/scenes/glyph_stones/glyph_stone_2/glyph_stone_2_texture.png"
+dest_files=["res://.godot/imported/glyph_stone_2_texture.png-936e762f46ea0ea26ad19e2cba198d6e.s3tc.ctex"]
 
 [params]
 

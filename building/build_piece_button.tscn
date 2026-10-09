@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cp1dbb22ke15i"]
+
+[ext_resource type="Script" uid="uid://dophswthjffe3" path="res://building/build_piece_button.gd" id="1_mupwu"]
+
+[node name="BuildPieceButton" type="Button" unique_id=1995547001]
+custom_minimum_size = Vector2(72, 72)
+offset_right = 8.0
+offset_bottom = 8.0
+clip_text = true
+expand_icon = true
+script = ExtResource("1_mupwu")

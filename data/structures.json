@@ -5,5 +5,9 @@
 	],
 	"ruined_road": [
 		"res://world/structures/scenes/ruined_road_1.tscn",
+	],
+	"glyph_stones": [
+		"res://world/structures/scenes/glyph_stones/ice_glyph_lesser_stone.tscn",
+		"res://world/structures/scenes/glyph_stones/soul_glyph_lesser_stone.tscn"
 	]
 }

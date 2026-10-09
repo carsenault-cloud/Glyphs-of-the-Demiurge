@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://b5romrho8vi4j"]
+
+[ext_resource type="Script" uid="uid://bgdsgne3dbhj5" path="res://world/structures/scenes/glyph_stones/proximity_glow.gd" id="2_xy863"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_q7tho"]
+radius = 5.0
+
+[node name="ProximitySprite" type="AnimatedSprite3D" unique_id=365762045]
+script = ExtResource("2_xy863")
+base_color = Color(1, 1, 1, 1)
+
+[node name="Area3D" type="Area3D" parent="." unique_id=184192769]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=258407048]
+shape = SubResource("SphereShape3D_q7tho")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="." unique_id=69348780]

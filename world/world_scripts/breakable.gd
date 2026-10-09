@@ -50,7 +50,7 @@ func _break(full_value: bool) -> void:
 		if full_value:
 			amount = stack.count
 		else:
-			amount = roundi(stack.count * randf_range(0.0, 1.0))
+			amount = roundi(stack.count * randf_range(0.2, 1.0))
 		if amount > 0:
 			result.append(ItemStack.new(stack.item, amount))
 

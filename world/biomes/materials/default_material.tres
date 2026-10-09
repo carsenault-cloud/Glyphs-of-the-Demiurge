@@ -1,10 +1,10 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://8jhvuw4l8npl"]
 
 [ext_resource type="Shader" uid="uid://dkm60k6varsxu" path="res://world/world_shaders/terrain.gdshader" id="1_ha55f"]
-[ext_resource type="Texture2D" uid="uid://ccdiludjj6opb" path="res://world/biomes/materials/textures/default_grass_texture.tres" id="2_m60p7"]
-[ext_resource type="Texture2D" uid="uid://b5gdbghqmem82" path="res://world/biomes/materials/textures/default_stone_texture.tres" id="3_lt02w"]
-[ext_resource type="Texture2D" uid="uid://bjvtcmsr7rvch" path="res://world/biomes/materials/textures/default_sand_texture.tres" id="4_i6mh7"]
-[ext_resource type="Texture2D" uid="uid://con38nnj6s0p7" path="res://world/biomes/materials/textures/default_snow_texture.tres" id="5_wkpeb"]
+[ext_resource type="Texture2D" uid="uid://bglpago3tk5am" path="res://world/biomes/materials/textures/v2/default_grass_texture_v2.tres" id="2_m60p7"]
+[ext_resource type="Texture2D" uid="uid://b5gdbghqmem82" path="res://world/biomes/materials/textures/v1/default_stone_texture.tres" id="3_lt02w"]
+[ext_resource type="Texture2D" uid="uid://c2yso2ugw65g7" path="res://world/biomes/materials/textures/v2/default_sand_texture_v2.tres" id="4_i6mh7"]
+[ext_resource type="Texture2D" uid="uid://con38nnj6s0p7" path="res://world/biomes/materials/textures/v1/default_snow_texture.tres" id="5_wkpeb"]
 
 [resource]
 render_priority = 0

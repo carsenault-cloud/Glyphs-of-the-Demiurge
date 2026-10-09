@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://gjualx14vf3w"]
+
+[resource]
+transparency = 1
+albedo_color = Color(0.11764706, 0.69803923, 0.49411765, 1)
+texture_filter = 0
+use_point_size = true
+point_size = 5.0

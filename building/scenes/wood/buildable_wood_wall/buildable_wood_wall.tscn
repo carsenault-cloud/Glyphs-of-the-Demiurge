@@ -30,6 +30,7 @@ metadata/_custom_type_script = "uid://dr583l870f4fj"
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=63976324]
 script = ExtResource("4_gs7sl")
+buildable = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1589306166]
 mesh = ExtResource("4_vmg6a")
@@ -42,9 +43,11 @@ shape = SubResource("BoxShape3D_g4v7s")
 [node name="SnapPoint" type="Marker3D" parent="." unique_id=1333652445]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -1)
 script = ExtResource("6_n5xvr")
+snap_group = null
 metadata/_custom_type_script = "uid://72vdc5h64ht8"
 
 [node name="SnapPoint2" type="Marker3D" parent="." unique_id=1110423878]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1, 1)
 script = ExtResource("6_n5xvr")
+snap_group = null
 metadata/_custom_type_script = "uid://72vdc5h64ht8"
